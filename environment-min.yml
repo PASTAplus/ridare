@@ -1,0 +1,15 @@
+name: ridare
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - libiconv
+  - pytest
+  - lxml
+  - daiquiri
+  - requests
+  - uwsgi
+  - jinja2
+  - flask
+prefix: /home/servilla/anaconda3/envs/ridare
