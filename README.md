@@ -17,7 +17,16 @@ related_funding:  dataset/project/relatedProject/funding/markdown
 $ curl http://127.0.0.1:5000/markdown/abstract/edi.521.1
 ```
 ```html
-<p>This SOils DAta Harmonization (SoDaH) database is designed to bring together soil carbon data from diverse research networks into a harmonized dataset that can be used for synthesis activities and model development. The research network sources for SoDaH span different biomes and climates, encompass multiple ecosystem types, and have collected data across a range of spatial, temporal, and depth gradients. The rich data sets assembled in SoDaH consist of observations from monitoring efforts and long-term ecological experiments. The SoDaH database also incorporates related environmental covariate data pertaining to climate, vegetation, soil chemistry, and soil physical properties. The data are harmonized and aggregated using open-source code that enables  a scripted, repeatable approach for soil data synthesis.</p>
+<p>This SOils DAta Harmonization (SoDaH) database is designed to bring together soil carbon
+data from diverse research networks into a harmonized dataset that can be used for
+synthesis activities and model development. The research network sources for SoDaH span
+different biomes and climates, encompass multiple ecosystem types, and have collected
+data across a range of spatial, temporal, and depth gradients. The rich data sets
+assembled in SoDaH consist of observations from monitoring efforts and long-term
+ecological experiments. The SoDaH database also incorporates related environmental
+covariate data pertaining to climate, vegetation, soil chemistry, and soil physical
+properties. The data are harmonized and aggregated using open-source code that enables 
+a scripted, repeatable approach for soil data synthesis.</p>
 ```
 
 ```shell
