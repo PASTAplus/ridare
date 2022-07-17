@@ -43,7 +43,10 @@ $ curl http://127.0.0.1:5000/markdown/related_funding/knb-lter-cap.689.1
 <li>NSF DDIG - 1998-1999 DEB-9800912 (Dent and Grimm)</li>
 </ul> 
 ```
+<<<<<<< HEAD
 
 ## Notes
 
 [Overview of markdown support in EML](https://eml.ecoinformatics.org/whats-new-in-eml-2-2-0.html)
+=======
+>>>>>>> 2490a309893a7b6aeebb7024862ac0b174503230
