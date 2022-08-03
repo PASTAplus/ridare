@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml
+    xmlns:doc="https://eml.ecoinformatics.org/documentation-2.2.0"
+    xmlns:res="https://eml.ecoinformatics.org/resource-2.2.0"
+    xmlns:txt="https://eml.ecoinformatics.org/text-2.2.0"
+    xmlns:rp="https://eml.ecoinformatics.org/party-2.2.0"
+    xmlns:cov="https://eml.ecoinformatics.org/coverage-2.2.0"
+    xmlns:sem="https://eml.ecoinformatics.org/semantics-2.2.0"
+    xmlns:prot="https://eml.ecoinformatics.org/protocol-2.2.0"
+    xmlns:phys="https://eml.ecoinformatics.org/physical-2.2.0"
+    xmlns:att="https://eml.ecoinformatics.org/attribute-2.2.0"
+    xmlns:ent="https://eml.ecoinformatics.org/entity-2.2.0"
+    xmlns:con="https://eml.ecoinformatics.org/constraint-2.2.0"
+    xmlns:sw="https://eml.ecoinformatics.org/software-2.2.0"
+    xmlns:ds="https://eml.ecoinformatics.org/dataset-2.2.0"
+    xmlns:cit="https://eml.ecoinformatics.org/literature-2.2.0"
+    xmlns:md="https://eml.ecoinformatics.org/methods-2.2.0"
+    xmlns:unit="https://eml.ecoinformatics.org/units-2.2.0"
+    xmlns:spref="https://eml.ecoinformatics.org/spatialReference-2.2.0"
+    xmlns:acc="https://eml.ecoinformatics.org/access-2.2.0"
+    xmlns:proj="https://eml.ecoinformatics.org/project-2.2.0"
+    xmlns:v="https://eml.ecoinformatics.org/view-2.2.0"
+    xmlns:sp="https://eml.ecoinformatics.org/storedProcedure-2.2.0"
+    xmlns:sv="https://eml.ecoinformatics.org/spatialVector-2.2.0"
+    xmlns:sr="https://eml.ecoinformatics.org/spatialRaster-2.2.0"
+    xmlns:dat="https://eml.ecoinformatics.org/dataTable-2.2.0"
+    xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:docbook="http://docbook.org/ns/docbook"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+  https://eml.ecoinformatics.org/eml-2.2.0              https://eml.ecoinformatics.org/eml-2.2.0
+  https://eml.ecoinformatics.org/documentation-2.2.0    https://eml.ecoinformatics.org/eml-2.2.0/eml-documentation.xsd
+  https://eml.ecoinformatics.org/resource-2.2.0         https://eml.ecoinformatics.org/eml-2.2.0/eml-resource.xsd
+  https://eml.ecoinformatics.org/text-2.2.0             https://eml.ecoinformatics.org/eml-2.2.0/eml-text.xsd
+  https://eml.ecoinformatics.org/party-2.2.0            https://eml.ecoinformatics.org/eml-2.2.0/eml-party.xsd
+  https://eml.ecoinformatics.org/coverage-2.2.0         https://eml.ecoinformatics.org/eml-2.2.0/eml-coverage.xsd
+  https://eml.ecoinformatics.org/semantics-2.2.0        https://eml.ecoinformatics.org/eml-2.2.0/eml-semantics.xsd
+  https://eml.ecoinformatics.org/protocol-2.2.0         https://eml.ecoinformatics.org/eml-2.2.0/eml-protocol.xsd
+  https://eml.ecoinformatics.org/physical-2.2.0         https://eml.ecoinformatics.org/eml-2.2.0/eml-physical.xsd
+  https://eml.ecoinformatics.org/attribute-2.2.0        https://eml.ecoinformatics.org/eml-2.2.0/eml-attribute.xsd
+  https://eml.ecoinformatics.org/entity-2.2.0           https://eml.ecoinformatics.org/eml-2.2.0/eml-entity.xsd
+  https://eml.ecoinformatics.org/constraint-2.2.0       https://eml.ecoinformatics.org/eml-2.2.0/eml-constraint.xsd
+  https://eml.ecoinformatics.org/software-2.2.0         https://eml.ecoinformatics.org/eml-2.2.0/eml-software.xsd
+  https://eml.ecoinformatics.org/dataset-2.2.0          https://eml.ecoinformatics.org/eml-2.2.0/eml-dataset.xsd
+  https://eml.ecoinformatics.org/literature-2.2.0       https://eml.ecoinformatics.org/eml-2.2.0/eml-literature.xsd
+  https://eml.ecoinformatics.org/methods-2.2.0          https://eml.ecoinformatics.org/eml-2.2.0/eml-methods.xsd
+  https://eml.ecoinformatics.org/units-2.2.0            https://eml.ecoinformatics.org/eml-2.2.0/eml-units.xsd
+  https://eml.ecoinformatics.org/spatialReference-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml-spatialReference.xsd
+  https://eml.ecoinformatics.org/access-2.2.0           https://eml.ecoinformatics.org/eml-2.2.0/eml-access.xsd
+  https://eml.ecoinformatics.org/project-2.2.0          https://eml.ecoinformatics.org/eml-2.2.0/eml-project.xsd
+  https://eml.ecoinformatics.org/view-2.2.0             https://eml.ecoinformatics.org/eml-2.2.0/eml-view.xsd
+  https://eml.ecoinformatics.org/storedProcedure-2.2.0  https://eml.ecoinformatics.org/eml-2.2.0/eml-storedProcedure.xsd
+  https://eml.ecoinformatics.org/spatialVector-2.2.0    https://eml.ecoinformatics.org/eml-2.2.0/eml-spatialVector.xsd
+  https://eml.ecoinformatics.org/spatialRaster-2.2.0    https://eml.ecoinformatics.org/eml-2.2.0/eml-spatialRaster.xsd
+  https://eml.ecoinformatics.org/dataTable-2.2.0        https://eml.ecoinformatics.org/eml-2.2.0/eml-dataTable.xsd
+ " packageId="packageId0" system="system0" scope="system" xml:lang="lang0">
+  <access id="id0" system="system1" scope="document" order="allowFirst"
+          authSystem="authSystem0">
+    <allow>
+      <principal>principal0</principal>
+      <principal>principal1</principal>
+      <permission>read</permission>
+      <permission>read</permission>
+    </allow>
+    <allow>
+      <principal>principal2</principal>
+      <principal>principal3</principal>
+      <permission>read</permission>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <software id="id1" system="system2" scope="document">
+    <references system="system3">references0</references>
+  </software>
+  <annotations>
+    <annotation references="references1" id="id2" system="system4" scope="document">
+      <propertyURI label="label0">http://www.oxygenxml.com/</propertyURI>
+      <valueURI label="label1">http://www.oxygenxml.com/</valueURI>
+    </annotation>
+    <annotation references="references2" id="id3" system="system5" scope="document">
+      <propertyURI label="label2">http://www.oxygenxml.com/</propertyURI>
+      <valueURI label="label3">http://www.oxygenxml.com/</valueURI>
+    </annotation>
+  </annotations>
+  <additionalMetadata id="id4">
+    <describes>describes0</describes>
+    <describes>describes1</describes>
+    <metadata>
+      <proj:researchProject id="id5" system="system6" scope="document">
+        <title>title0</title>
+        <title>title1</title>
+        <personnel id="id6" system="system7" scope="document">
+          <references system="system8">references3</references>
+          <role>contentProvider</role>
+          <role>contentProvider</role>
+        </personnel>
+        <personnel id="id7" system="system9" scope="document">
+          <references system="system10">references4</references>
+          <role>contentProvider</role>
+          <role>contentProvider</role>
+        </personnel>
+        <funding xml:lang="lang81">
+          LEADING PLAIN TEXT, LINE 1
+          LEADING PLAIN TEXT, LINE 2
+          <markdown>markdown0</markdown>
+          CENTER PLAIN TEXT, LINE 1
+          CENTER PLAIN TEXT, LINE 2
+          <markdown>markdown1</markdown>
+          <section xml:lang="lang82">
+            <para xml:lang="lang83">
+              <literalLayout>
+              </literalLayout>
+            </para>
+            <para xml:lang="lang84">
+              <literalLayout>
+              </literalLayout>
+              <emphasis xml:lang="lang85">
+              </emphasis>
+            </para>
+          </section>
+          <section xml:lang="lang86">
+            <section xml:lang="lang87">
+              <section xml:lang="lang88">
+                <para xml:lang="lang89">
+                  <itemizedlist>
+                    <listitem>
+                      <itemizedlist>
+                        <listitem>
+                          <para xml:lang="lang90">
+                          </para>
+                          <itemizedlist>
+                            <listitem/>
+                            <listitem/>
+                          </itemizedlist>
+                        </listitem>
+                        <listitem>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                          <itemizedlist>
+                            <listitem/>
+                            <listitem/>
+                          </itemizedlist>
+                        </listitem>
+                      </itemizedlist>
+                      <orderedlist>
+                        <listitem>
+                          <para xml:lang="lang91">
+                            <subscript xml:lang="lang92">
+                              <superscript xml:lang="lang93">
+                                <subscript xml:lang="lang94">
+                                  <subscript xml:lang="lang95">
+                                    <superscript xml:lang="lang96">
+                                    </superscript>
+                                  </subscript>
+                                </subscript>
+                                <subscript xml:lang="lang97">
+                                  <subscript xml:lang="lang98">
+                                  </subscript>
+                                </subscript>
+                              </superscript>
+                              <subscript xml:lang="lang99">
+                                <subscript xml:lang="lang100">
+                                </subscript>
+                              </subscript>
+                            </subscript>
+                            <superscript xml:lang="lang101">
+                              <superscript xml:lang="lang102">
+                                <superscript xml:lang="lang103">
+                                </superscript>
+                                <subscript xml:lang="lang104">
+                                  <superscript xml:lang="lang105">
+                                    <subscript xml:lang="lang106">
+                                    </subscript>
+                                  </superscript>
+                                  <subscript xml:lang="lang107">
+                                    <superscript xml:lang="lang108">
+                                    </superscript>
+                                    <superscript xml:lang="lang109">
+                                    </superscript>
+                                  </subscript>
+                                </subscript>
+                              </superscript>
+                            </superscript>
+                          </para>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                        </listitem>
+                        <listitem>
+                          <itemizedlist>
+                            <listitem/>
+                            <listitem/>
+                          </itemizedlist>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                        </listitem>
+                      </orderedlist>
+                    </listitem>
+                    <listitem>
+                      <orderedlist>
+                        <listitem>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                          <itemizedlist>
+                            <listitem/>
+                            <listitem/>
+                          </itemizedlist>
+                        </listitem>
+                        <listitem>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                          <para xml:lang="lang110">
+                            <subscript xml:lang="lang111">
+                              <superscript xml:lang="lang112">
+                                <superscript xml:lang="lang113">
+                                  <subscript xml:lang="lang114">
+                                    <subscript xml:lang="lang115">
+                                    </subscript>
+                                    <subscript xml:lang="lang116">
+                                    </subscript>
+                                  </subscript>
+                                </superscript>
+                                <subscript xml:lang="lang117">
+                                  <subscript xml:lang="lang118">
+                                    <superscript xml:lang="lang119">
+                                    </superscript>
+                                    <superscript xml:lang="lang120">
+                                    </superscript>
+                                  </subscript>
+                                </subscript>
+                              </superscript>
+                            </subscript>
+                          </para>
+                        </listitem>
+                      </orderedlist>
+                      <orderedlist>
+                        <listitem>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                          <itemizedlist>
+                            <listitem/>
+                            <listitem/>
+                          </itemizedlist>
+                        </listitem>
+                        <listitem>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                          <orderedlist>
+                            <listitem/>
+                            <listitem/>
+                          </orderedlist>
+                        </listitem>
+                      </orderedlist>
+                    </listitem>
+                  </itemizedlist>
+                </para>
+                <para xml:lang="lang121">
+                  <superscript xml:lang="lang122">
+                    <subscript xml:lang="lang123">
+                      <superscript xml:lang="lang124">
+                        <subscript xml:lang="lang125">
+                          <superscript xml:lang="lang126">
+                          </superscript>
+                        </subscript>
+                      </superscript>
+                      <subscript xml:lang="lang127">
+                        <superscript xml:lang="lang128">
+                          <superscript xml:lang="lang129">
+                          </superscript>
+                        </superscript>
+                      </subscript>
+                    </subscript>
+                  </superscript>
+                </para>
+              </section>
+              <para xml:lang="lang130">
+                <superscript xml:lang="lang131">
+                  <superscript xml:lang="lang132">
+                    <superscript xml:lang="lang133">
+                      <subscript xml:lang="lang134">
+                      </subscript>
+                    </superscript>
+                  </superscript>
+                </superscript>
+              </para>
+            </section>
+          </section>
+          ENDING PLAIN TEXT, LINE 1
+          ENDING PLAIN TEXT, LINE 2
+        </funding>
+        <relatedProject id="id21" system="system23" scope="document">
+          <references system="system24">references8</references>
+        </relatedProject>
+      </proj:researchProject>
+    </metadata>
+  </additionalMetadata>
+  <additionalMetadata id="id22">
+    <describes>describes2</describes>
+    <describes>describes3</describes>
+    <metadata>
+      <proj:researchProject id="id23" system="system25" scope="document">
+        <references system="system26">references9</references>
+      </proj:researchProject>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

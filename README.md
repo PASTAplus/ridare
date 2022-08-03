@@ -54,4 +54,4 @@ $ curl http://127.0.0.1:5000/markdown/related_funding/knb-lter-cap.689.1
 ```
 ## Notes
 
-[Overview of markdown support in EML](https://eml.ecoinformatics.org/whats-new-in-eml-2-2-0.html)
+[Overview of markdown support in EML 2.2.0](https://eml.ecoinformatics.org/whats-new-in-eml-2-2-0.html)

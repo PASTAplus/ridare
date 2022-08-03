@@ -34,7 +34,7 @@ dependencies:
   - libxml2=2.9.12
   - libxslt=1.1.33
   - libzlib=1.2.12
-  - lxml=4.8.0
+  - lxml=4.9.1
   - markdown=3.4.1
   - markupsafe=2.1.1
   - ncurses=6.3
@@ -49,6 +49,7 @@ dependencies:
   - pyparsing=3.0.9
   - pysocks=1.7.1
   - pytest=7.1.2
+  - pytest-flask=1.2.0
   - python=3.10.5
   - python-json-logger=2.0.1
   - python_abi=3.10

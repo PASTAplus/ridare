@@ -19,14 +19,14 @@ app = flask.Flask(__name__)
 app.config.from_object(webapp.config.Config)
 
 
-@app.route("/markdown")
-@app.route("/markdown/help")
+@app.route("/")
+@app.route("/help")
 def help():
     redirect_url = webapp.config.Config.HELP_URL
     return flask.redirect(redirect_url, 301)
 
 
-@app.route("/markdown/<element_str>/<pid>")
+@app.route("/<element_str>/<pid>")
 def markdown(element_str, pid=None):
     env = flask.request.args.get("env")
     if env is None:

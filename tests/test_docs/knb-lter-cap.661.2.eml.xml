@@ -1,0 +1,2702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-cap.661.2" scope="system"
+         system="https://pasta.edirepository.org"
+         xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+         xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1/ eml.xsd">
+  <access authSystem="https://pasta.edirepository.org/authentication"
+          order="allowFirst" scope="document" system="https://pasta.edirepository.org">
+    <allow>
+      <principal>uid=CAP,o=LTER,dc=ecoinformatics,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <alternateIdentifier system="https://doi.org">
+      doi:10.6073/pasta/ded1548e4ee8611ba587d26432d5e269
+    </alternateIdentifier>
+    <title>Bioclimatic predictors in Maricopa County, Arizona derived from remotely
+      sensed, daily weather parameters (NASA DAYMET): 2000-2016
+    </title>
+    <creator>
+      <individualName>
+        <givenName>Cameron</givenName>
+        <surName>Boehme</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+      <electronicMailAddress>cboehme@asu.edu</electronicMailAddress>
+      <userId directory="https://orcid.org"/>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Chelsea</givenName>
+        <surName>Stratton</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+      <electronicMailAddress>cmstrat1@asu.edu</electronicMailAddress>
+      <userId directory="https://orcid.org"/>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Fabio</givenName>
+        <surName>de Albuquerque</surName>
+      </individualName>
+      <organizationName>Arizona State University, Polytechnic campus</organizationName>
+      <electronicMailAddress>Fabio.Albuquerque@asu.edu</electronicMailAddress>
+      <userId directory="https://orcid.org"/>
+    </creator>
+    <metadataProvider>
+      <individualName>
+        <givenName>Cameron</givenName>
+        <surName>Boehme</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+      <electronicMailAddress>cboehme@asu.edu</electronicMailAddress>
+      <userId directory="https://orcid.org"/>
+    </metadataProvider>
+    <pubDate>2019-03-18</pubDate>
+    <abstract>
+      <section>
+        <title>overview</title>
+        <para>
+          There is considerable interest in using climatic variables and
+          bioclimatic predictors not only in ecological species distribution
+          models but in interdisciplinary studies of urban environments. We
+          compiled an downloadable geodatabase of monthly environmental
+          variables on a 1km x 1km spatial resolution including raw climate
+          variables such as precipitation, minimum and maximum air
+          temperature, and water vapor pressure obtained from NASA Earth
+          Science Data and Information System Daily Surface Weather and
+          Climatological Summaries (DAYMET) for Maricopa County. We then used
+          the continuous environmental data from DAYMET to create 19 different
+          annual bioclimatic predictors for Maricopa County (as defined by
+          Nix, 1986 and Hijmans, 2004). Our study is the first to utilize NASA
+          DAYMET model data to generate bioclimatic predictors. Bioclimatic
+          predictors are important variables to use in model development to
+          study nuances of seasonality especially when compiling models of
+          species and vegetation. This geodatabase of environmental variables
+          provides accessible vital data for the entire Central
+          Arizona–Phoenix Long-Term Ecological Research (CAP LTER) study area
+          that can be used in an array of interdisciplinary studies.
+        </para>
+      </section>
+      <section>
+        <title>related data set</title>
+        <para>
+          Processed DAYMET data from which the data in this data set were
+          derived are accessible from:
+          https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&amp;identifier=662
+        </para>
+      </section>
+      <section>
+        <title>literature cited</title>
+        <para>
+          Hijmans, R.J., Cameron, S.E., Parra, J.L., Jones, P.G. and Jarvis,
+          A., 2004. The WorldClim interpolated global terrestrial climate
+          surfaces. Version 1.3.
+        </para>
+        <para>
+          Nix, Henry A., 1986, A biogeographic analysis of Australian elapid
+          snakes, in Longmore, Richard, ed., Atlas of elapid snakes of
+          Australia: Canberra, Australian Flora and Fauna Series 7, Australian
+          Government Publishing Service, p. 4‒15.
+        </para>
+      </section>
+    </abstract>
+    <keywordSet>
+      <keyword keywordType="theme">precipitation</keyword>
+      <keyword keywordType="theme">temperature</keyword>
+      <keyword keywordType="theme">urban</keyword>
+      <keyword keywordType="theme">climate</keyword>
+      <keyword keywordType="theme">climate change</keyword>
+      <keyword keywordType="theme">geographic information systems</keyword>
+      <keywordThesaurus>LTER controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword keywordType="theme">adapting to city life</keyword>
+      <keyword keywordType="theme">population studies</keyword>
+      <keyword keywordType="theme">climate and heat</keyword>
+      <keywordThesaurus>LTER core areas</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword keywordType="theme">bioclimatic predictors</keyword>
+      <keyword keywordType="theme">biovariables</keyword>
+      <keyword keywordType="theme">dismo</keyword>
+      <keyword keywordType="theme">daymet</keyword>
+      <keyword keywordType="theme">nasa</keyword>
+      <keywordThesaurus>Creator Defined Keyword Set</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword keywordType="theme">cap lter</keyword>
+      <keyword keywordType="theme">cap</keyword>
+      <keyword keywordType="theme">caplter</keyword>
+      <keyword keywordType="theme">central arizona phoenix long term ecological
+        research
+      </keyword>
+      <keyword keywordType="place">arizona</keyword>
+      <keyword keywordType="place">az</keyword>
+      <keyword keywordType="theme">arid land</keyword>
+      <keywordThesaurus>CAPLTER Keyword Set List</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>Copyright Board of Regents, Arizona State University. This
+      information is released to the public and may be used for academic, educational,
+      or commercial purposes subject to the following restrictions. While the CAP LTER
+      will make every effort possible to control and document the quality of the data it
+      publishes, the data are made available 'as is'. The CAP LTER cannot assume
+      responsibility for damages resulting from mis-use or mis-interpretation of
+      datasets, or from errors or omissions that may exist in the data. It is considered
+      a matter of professional ethics to acknowledge the work of other scientists that
+      has resulted in data used in subsequent research. The CAP LTER expects that any
+      use of data from this server will be accompanied with the appropriate citations
+      and acknowledgments. The CAP LTER encourages users to contact the original
+      investigator responsible for the data that they are accessing. Where appropriate,
+      researchers whose projects are integrally dependent on CAP LTER data are
+      encouraged to consider collaboration and/or co-authorship with original
+      investigators. The CAP LTER requests that users submit to the Julie Ann Wrigley
+      Global Institute of Sustainability at Arizona State University reference to any
+      publication(s) resulting from the use of data obtained from this site.
+    </intellectualRights>
+    <distribution>
+      <online>
+        <onlineDescription>CAPLTER Metadata URL</onlineDescription>
+        <url>
+          https://sustainability.asu.edu/caplter/data/data-catalog/view/knb-lter-cap.661.2/xml/
+        </url>
+      </online>
+    </distribution>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Maricopa County, AZ; CAP LTER study area
+        </geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-113.62</westBoundingCoordinate>
+          <eastBoundingCoordinate>-110.9</eastBoundingCoordinate>
+          <northBoundingCoordinate>34.27</northBoundingCoordinate>
+          <southBoundingCoordinate>32.36</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2000-01-01</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2016-12-31</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <contact>
+      <organizationName>Julie Ann Wrigley Global Institute of Sustainability, Arizona
+        State University
+      </organizationName>
+      <positionName>Data Manager</positionName>
+      <address>
+        <deliveryPoint>PO Box 875402</deliveryPoint>
+        <city>Tempe</city>
+        <administrativeArea>AZ</administrativeArea>
+        <postalCode>85287</postalCode>
+        <country>USA</country>
+      </address>
+      <electronicMailAddress>caplter.data@asu.edu</electronicMailAddress>
+    </contact>
+    <publisher>
+      <organizationName>Arizona State University, Julie Ann Wrigley Global Institute of
+        Sustainability
+      </organizationName>
+      <address>
+        <deliveryPoint>PO Box 875402</deliveryPoint>
+        <city>Tempe</city>
+        <administrativeArea>AZ</administrativeArea>
+        <postalCode>85287</postalCode>
+        <country>USA</country>
+      </address>
+    </publisher>
+    <methods>
+      <methodStep>
+        <description>
+          <section>
+            <title>Raw Climatic Data</title>
+            <para>
+              DAYMET data were produced from models and algorithms imposed onto
+              daily outputs of ground weather stations throughout North America in
+              order to produce a continuous surface dataset (Thornton et al. 2018;
+              Thornton et al. 1997). The monthly values for minimum and maximum
+              air temperatures and water vapor pressure used for our analysis were
+              generated by averaging the daily DAYMET output values. Monthly
+              precipitation totals were used in our analysis summed from daily
+              DAYMET output values. The spatial resolution for all NASA DAYMET
+              data is 1km x 1km.
+            </para>
+            <para>
+              Data was downloaded in GeoTIFF format for North America directly
+              from The Oak Ridge National Laboratory Distributed Active Archive
+              Center (ORNL DAAC) which serves as a data center for the NASA Earth
+              Observing System Data and Information System (EOSDIS). Downloaded
+              rasters were multispectral GeoTIFF rasters comprised of 12 bands
+              (one for each month). Each individual band contained monthly data
+              for one of the environmental parameters: Average air temperature,
+              Precipitation, Maximum air temperature, Minimum air temperature,
+              Water vapor pressure. We conducted a batch download for a total of
+              68 multispectral GeoTIFF rasters containing more than 3.5 GB of
+              environmental data.
+            </para>
+            <para>
+              Multispectral GeoTIFF rasters were then separated into single band
+              rasters for each parameter and month; new monthly single band
+              rasters were then generated including only data for Maricopa County,
+              Arizona, utilizing ESRI ArcMAP version 10.6.0.8321.
+            </para>
+          </section>
+          <section>
+            <title>Bioclimatic Variables</title>
+            <para>
+              Species distribution are driven by both climatic and non-climatic
+              variables (O’Donnell and Ignizio 2012). In order to understand the
+              impact of climatic variables on species, researchers have developed
+              bioclimatic predictors to explain climatic seasonality. These
+              bioclimatic predictors can be used in an interdisciplinary way to
+              look at nuances of climate impacts instead of utilizing only average
+              and total parameters like temperature and precipitation (Nix 1986;
+              Hijmans 2004).
+            </para>
+            <para>
+              Once climactic variables were extracted for Maricopa County from
+              NASA DAYMET data, bioclimatic predictors were generated using the
+              biovars function of the dismo package on Program R version 3.5.1
+              (Hijmans 2017, R Core Team 2017). Quarters referred to any 3 months
+              in consecutive order and November and December data were analyzed
+              with January and February data of the same calendar year in order to
+              analyze three months. The bioclimatic predictors were generated for
+              each calendar year from 2000 to 2016 for a total of 323 single band
+              rasters. The explanation for each raster calculation is shown in
+              Table 2 (Nix 1986; Hijmans 2004; O’Donnell and Ignizio 2012).
+            </para>
+          </section>
+          <section>
+            <title>References</title>
+            <para>
+              Hijmans, R.J., Cameron, S.E., Parra, J.L., Jones, P.G. and Jarvis,
+              A., 2004. The WorldClim interpolated global terrestrial climate
+              surfaces. Version 1.3.
+            </para>
+            <para>
+              Hijmans, Robert J., 2017, Program R Dismo Package: Species
+              Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+              Zoology, University of California at Berkeley. Available at
+              http://www.worldclim.org/bioclim.
+            </para>
+            <para>
+              Nix, Henry A., 1986, A biogeographic analysis of Australian elapid
+              snakes, in Longmore, Richard, ed., Atlas of elapid snakes of
+              Australia: Canberra, Australian Flora and Fauna Series 7, Australian
+              Government Publishing Service, p. 4‒15.
+            </para>
+            <para>
+              O’Donnell, M.S., and Ignizio, D.A. 2012. Bioclimatic Predictors for
+              Supporting Ecological Applications in the Conterminous United
+              States. U.S Geol. Surv. Data Ser. 691: 10.
+            </para>
+            <para>
+              R Core Team (2017). R: A language and environment for statistical
+              computing. R Foundation for Statistical Computing, Vienna, Austria.
+              URL https://www.R-project.org/.
+            </para>
+            <para>
+              Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+              R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+              for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+              https://doi.org/10.3334/ORNLDAAC/1345
+            </para>
+            <para>
+              Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+              of daily meteorological variables over large regions of complex
+              terrain. Journal of Hydrology 190: 214 - 251.
+              https://doi.org/10.1016/S0022-1694(96)03128-9
+            </para>
+          </section>
+        </description>
+      </methodStep>
+    </methods>
+    <otherEntity id="661_annual_mean_temperature_3c8318355e8992464a6f349b9a356b3d.zip">
+      <entityName>661_annual_mean_temperature_3c8318355e8992464a6f349b9a356b3d.zip
+      </entityName>
+      <entityDescription>Annual Mean Temperature: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_annual_mean_temperature_3c8318355e8992464a6f349b9a356b3d.zip
+        </objectName>
+        <size unit="byte">1711426</size>
+        <authentication method="MD5">3c8318355e8992464a6f349b9a356b3d</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/815b68c3ce5fd8fb4861ff7675954db0
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_annual_precip_2202aab124d96592360dacb80eeabd62.zip">
+      <entityName>661_annual_precip_2202aab124d96592360dacb80eeabd62.zip</entityName>
+      <entityDescription>Annual Precipitation: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_annual_precip_2202aab124d96592360dacb80eeabd62.zip</objectName>
+        <size unit="byte">777205</size>
+        <authentication method="MD5">2202aab124d96592360dacb80eeabd62</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/fb889ec9ff70430c7a8a1c965bb5e3c3
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_isothermality_b3067855893567b0950e6e02593579bc.zip">
+      <entityName>661_isothermality_b3067855893567b0950e6e02593579bc.zip</entityName>
+      <entityDescription>Isothermality (calculated as (Mean Diurnal Range/Temperature
+        Annual Range) * 100): central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_isothermality_b3067855893567b0950e6e02593579bc.zip</objectName>
+        <size unit="byte">1677387</size>
+        <authentication method="MD5">b3067855893567b0950e6e02593579bc</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/30a298dbbed3541cf7df5c88e26382bc
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: unitless (%)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_max_temperature_2856a0f483cbb72cee89193118ee883f.zip">
+      <entityName>661_max_temperature_2856a0f483cbb72cee89193118ee883f.zip</entityName>
+      <entityDescription>Max Temperature of Warmest Month: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_max_temperature_2856a0f483cbb72cee89193118ee883f.zip
+        </objectName>
+        <size unit="byte">838955</size>
+        <authentication method="MD5">2856a0f483cbb72cee89193118ee883f</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/c822ccdbb5a997772990b28e1938e9c0
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_precip_coldest_0de6132d57d4af9f378e89b7e98106a7.zip">
+      <entityName>661_mean_precip_coldest_0de6132d57d4af9f378e89b7e98106a7.zip
+      </entityName>
+      <entityDescription>Precipitation of Coldest Quarter: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_precip_coldest_0de6132d57d4af9f378e89b7e98106a7.zip
+        </objectName>
+        <size unit="byte">573456</size>
+        <authentication method="MD5">0de6132d57d4af9f378e89b7e98106a7</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/ef0af67b53db557d92dfbbc520b044e0
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_precip_driest_98b0616ba92514dd5ab29312fb5aaf30.zip">
+      <entityName>661_mean_precip_driest_98b0616ba92514dd5ab29312fb5aaf30.zip
+      </entityName>
+      <entityDescription>Precipitation of Driest Quarter: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_precip_driest_98b0616ba92514dd5ab29312fb5aaf30.zip
+        </objectName>
+        <size unit="byte">311595</size>
+        <authentication method="MD5">98b0616ba92514dd5ab29312fb5aaf30</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/dab918d5daec3ca081ec04338d3f3bf9
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_precip_warmest_c8f5f277db79dd6ebad5a7e1b0f48357.zip">
+      <entityName>661_mean_precip_warmest_c8f5f277db79dd6ebad5a7e1b0f48357.zip
+      </entityName>
+      <entityDescription>Precipitation of Warmest Quarter: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_precip_warmest_c8f5f277db79dd6ebad5a7e1b0f48357.zip
+        </objectName>
+        <size unit="byte">602598</size>
+        <authentication method="MD5">c8f5f277db79dd6ebad5a7e1b0f48357</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/0bed6431ae5cf600bce36443a21e7d55
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_precip_wettest_9f71bcad742d9b8bcb09b65ed4055800.zip">
+      <entityName>661_mean_precip_wettest_9f71bcad742d9b8bcb09b65ed4055800.zip
+      </entityName>
+      <entityDescription>Precipitation of Wettest Quarter: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_precip_wettest_9f71bcad742d9b8bcb09b65ed4055800.zip
+        </objectName>
+        <size unit="byte">678481</size>
+        <authentication method="MD5">9f71bcad742d9b8bcb09b65ed4055800</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/8af394edfdf3fb44475d34e7c862e66a
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_temperature_coldest_b5ce4f7f5c9d1f5fad73420664614c2d.zip">
+      <entityName>661_mean_temperature_coldest_b5ce4f7f5c9d1f5fad73420664614c2d.zip
+      </entityName>
+      <entityDescription>Mean Temperature of Coldest Quarter: central-Arizona,
+        2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_temperature_coldest_b5ce4f7f5c9d1f5fad73420664614c2d.zip
+        </objectName>
+        <size unit="byte">1702846</size>
+        <authentication method="MD5">b5ce4f7f5c9d1f5fad73420664614c2d</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/b8f50358904cdb9f4f2bf34da819ac50
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_temperature_driest_d7aa435330040e28a8d050fa6eae0146.zip">
+      <entityName>661_mean_temperature_driest_d7aa435330040e28a8d050fa6eae0146.zip
+      </entityName>
+      <entityDescription>Mean Temperature of Driest Quarter: central-Arizona,
+        2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_temperature_driest_d7aa435330040e28a8d050fa6eae0146.zip
+        </objectName>
+        <size unit="byte">1639824</size>
+        <authentication method="MD5">d7aa435330040e28a8d050fa6eae0146</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/e22611af3b27964ddabffb4c17fde8d0
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_temperature_warmest_006c0ea2f6fbc63256bcfbf50c782e7d.zip">
+      <entityName>661_mean_temperature_warmest_006c0ea2f6fbc63256bcfbf50c782e7d.zip
+      </entityName>
+      <entityDescription>Mean Temperature of Warmest Quarter: central-Arizona,
+        2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_temperature_warmest_006c0ea2f6fbc63256bcfbf50c782e7d.zip
+        </objectName>
+        <size unit="byte">1627412</size>
+        <authentication method="MD5">006c0ea2f6fbc63256bcfbf50c782e7d</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/395a36fdfbb2909ef37017540c3bbb94
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_mean_temperature_wettest_1de2e6fe41727d74055bafe4da800d16.zip">
+      <entityName>661_mean_temperature_wettest_1de2e6fe41727d74055bafe4da800d16.zip
+      </entityName>
+      <entityDescription>Mean Temperature of Wettest Quarter: central-Arizona,
+        2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_mean_temperature_wettest_1de2e6fe41727d74055bafe4da800d16.zip
+        </objectName>
+        <size unit="byte">1657984</size>
+        <authentication method="MD5">1de2e6fe41727d74055bafe4da800d16</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/4c17b8c787120b0a362bf631f55f41b2
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_min_temperature_527e9c5bd72cf94329669f83a1ae61b8.zip">
+      <entityName>661_min_temperature_527e9c5bd72cf94329669f83a1ae61b8.zip</entityName>
+      <entityDescription>Min Temperature of Coldest Month: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_min_temperature_527e9c5bd72cf94329669f83a1ae61b8.zip
+        </objectName>
+        <size unit="byte">713801</size>
+        <authentication method="MD5">527e9c5bd72cf94329669f83a1ae61b8</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/10588d807550722c6b3a974353189536
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_precip_driest_dec9e83843777ab876e500ab9f844e8a.zip">
+      <entityName>661_precip_driest_dec9e83843777ab876e500ab9f844e8a.zip</entityName>
+      <entityDescription>Precipitation of Driest Month: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_precip_driest_dec9e83843777ab876e500ab9f844e8a.zip</objectName>
+        <size unit="byte">164376</size>
+        <authentication method="MD5">dec9e83843777ab876e500ab9f844e8a</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/974e59a5e1a260f8308aeb82973ea1db
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_precip_seasonality_cb12ed8b2b18d0fe3e8f830d7ca72fbd.zip">
+      <entityName>661_precip_seasonality_cb12ed8b2b18d0fe3e8f830d7ca72fbd.zip
+      </entityName>
+      <entityDescription>Precipitation Seasonality (Coefficient of Variation):
+        central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_precip_seasonality_cb12ed8b2b18d0fe3e8f830d7ca72fbd.zip
+        </objectName>
+        <size unit="byte">1684008</size>
+        <authentication method="MD5">cb12ed8b2b18d0fe3e8f830d7ca72fbd</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/b59642b3cef3eff5e07f3a7afd3170fe
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: unitless (%)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_precip_wettest_b3a97bf308467a707dc2b9e21190da2d.zip">
+      <entityName>661_precip_wettest_b3a97bf308467a707dc2b9e21190da2d.zip</entityName>
+      <entityDescription>Precipitation of Wettest Month: central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_precip_wettest_b3a97bf308467a707dc2b9e21190da2d.zip</objectName>
+        <size unit="byte">568910</size>
+        <authentication method="MD5">b3a97bf308467a707dc2b9e21190da2d</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/adc87baa7d4552b46c9b04f48871396b
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: millimeter (mm)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_temperature_annual_range_88da06649a42b7c95d7aa11d83992b11.zip">
+      <entityName>661_temperature_annual_range_88da06649a42b7c95d7aa11d83992b11.zip
+      </entityName>
+      <entityDescription>Temperature Annual Range (calculated as Max Temperature of
+        Warmest Month - Min Temperature of Coldest Month): central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_temperature_annual_range_88da06649a42b7c95d7aa11d83992b11.zip
+        </objectName>
+        <size unit="byte">1243384</size>
+        <authentication method="MD5">88da06649a42b7c95d7aa11d83992b11</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/2aa3ace557037ab56e75d271d14aafc0
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity
+        id="661_temperature_diurnal_range_a2a916c22f835d726d750b79efb0a7e7.zip">
+      <entityName>661_temperature_diurnal_range_a2a916c22f835d726d750b79efb0a7e7.zip
+      </entityName>
+      <entityDescription>Mean Diurnal Range (Mean of monthly (max temp - min temp)):
+        central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_temperature_diurnal_range_a2a916c22f835d726d750b79efb0a7e7.zip
+        </objectName>
+        <size unit="byte">1731296</size>
+        <authentication method="MD5">a2a916c22f835d726d750b79efb0a7e7</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/c6460dee8296ca9d573b25cda52776fe
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: Celsius
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+    <otherEntity id="661_temperature_seasonality_8acb10a4e551eab829a9852605f3ae1f.zip">
+      <entityName>661_temperature_seasonality_8acb10a4e551eab829a9852605f3ae1f.zip
+      </entityName>
+      <entityDescription>Temperature Seasonality (standard deviation *100):
+        central-Arizona, 2000-2016
+      </entityDescription>
+      <physical>
+        <objectName>661_temperature_seasonality_8acb10a4e551eab829a9852605f3ae1f.zip
+        </objectName>
+        <size unit="byte">1677696</size>
+        <authentication method="MD5">8acb10a4e551eab829a9852605f3ae1f</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>zip</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>
+              https://pasta.lternet.edu/package/data/eml/knb-lter-cap/661/2/b483328b89d9710831ea0da8be613acd
+            </url>
+          </online>
+        </distribution>
+      </physical>
+      <additionalInfo>
+        <section>
+          <title>units</title>
+          <para>
+            unit of measure: unitless (%)
+          </para>
+        </section>
+        <section>
+          <title>spatial reference properties:</title>
+          <para>
+            Type: Projected
+          </para>
+          <para>
+            Geographic Coordinate Reference: WGS 1984
+          </para>
+          <para>
+            Projection: Lambert Conformal Conic
+          </para>
+          <para>
+            Projection Units: meters
+          </para>
+          <para>
+            Datum (Spheroid): WGS 84
+          </para>
+        </section>
+        <section>
+          <title>spatial data properties:</title>
+          <para>
+            Spatial Reference Type: Raster
+          </para>
+          <para>
+            Pixel Depth: 32 bit
+          </para>
+          <para>
+            Pixel Type: float
+          </para>
+          <para>
+            Bands: Single Band Rasters
+          </para>
+          <para>
+            Raster Format: GeoTIFF
+          </para>
+          <para>
+            Source Type: continuous
+          </para>
+          <para>
+            No data value: -9999
+          </para>
+          <para>
+            Scale Factor: none
+          </para>
+          <para>
+            Offset: none
+          </para>
+        </section>
+        <section>
+          <title>data source</title>
+          <para>
+            Daymet: Monthly Climate Summaries on a 1-km Grid for North America,
+            Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+          </para>
+        </section>
+        <section>
+          <title>data source: citations</title>
+          <para>
+            Thornton, M.M., P.E. Thornton, Y. Wei, B.W. Mayer, R.B. Cook, and
+            R.S. Vose. 2018. Daymet: Monthly Climate Summaries on a 1-km Grid
+            for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA.
+            https://doi.org/10.3334/ORNLDAAC/1345
+          </para>
+          <para>
+            Thornton, P.E., Running, S.W., White, M.A. 1997. Generating surfaces
+            of daily meteorological variables over large regions of complex
+            terrain. Journal of Hydrology 190: 214 - 251.
+            https://doi.org/10.1016/S0022-1694(96)03128-9
+          </para>
+        </section>
+        <section>
+          <title>procedure</title>
+          <para>
+            NASA DAYMET data used as input into Program R dismo package using
+            biovars function to generate this raster.
+          </para>
+          <para>
+            Raw climatic variables: Maximum temperature, minimum temperature,
+            and precipitation were used as inputs into program R dismo package.
+            Biovars function was performed on monthly inputs for 2000 to
+            generate this raster file.
+          </para>
+        </section>
+        <section>
+          <title>procedure: citations</title>
+          <para>
+            Hijmans, Robert J., 2017, Program R Dismo Package: Species
+            Distribution Modeling: Berkeley, Calif, Museum of Vertebrate
+            Zoology, University of California at Berkeley. Available at
+            http://www.worldclim.org/bioclim
+          </para>
+        </section>
+      </additionalInfo>
+      <entityType>zip</entityType>
+    </otherEntity>
+  </dataset>
+</eml:eml>
