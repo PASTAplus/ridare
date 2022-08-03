@@ -1,0 +1,240 @@
+<div><p>LEADING PLAIN TEXT, LINE 1 OF 2
+    LEADING PLAIN TEXT, LINE 2 OF 2</p></div><div><h1 id="markdown-text-1-of-2">MARKDOWN TEXT 1 OF 2</h1>
+<h2 id="methods-and-protocols">Methods and Protocols</h2>
+<p>The 1-meter land cover map was generated primarily using the 2015 NAIP imagery. It has eight land cover classes and achieved an
+overall accuracy of 94%. This detailed land cover map was created in the eCognition software using the object-based classification
+approach. The first step was NAIP image segmentation, where pixels with similar spectral and spatial characteristics were grouped
+into parcel sized or finer objects. Next, hierarchical rule-based expert systems were developed to classify the objects into
+specific land cover classes based on their spectral, morphological, and contextual attributes.<br />
+Various auxiliary GIS data were utilized to improve classification accuracy. They include the 2015 cadastral parcel data, the 2014
+USGS Lidar data (1-meter), the 2014 Microsoft/OpenStreetMap Building Footprint data, the 2015 Street TIGER/Line, and the previous
+NAIP-based land cover map for the year of 2010. Specifically, building footprints and Lidar data significantly improved the
+boundary detection of above-ground objects. Compared to the 2010 NAIP-based land cover map, buildings and tree canopy shapes were
+classified more accurately. Finally, post-classification manual editing was applied to minimize classification errors.</p>
+<h2 id="land-cover-class-description">Land Cover Class Description</h2>
+<table>
+<thead>
+<tr>
+<th>Class ID</th>
+<th>Class Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Building</td>
+<td>This class contains all types of buildings in residential, commercial, and industrial areas.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Asphalt</td>
+<td>This is the dark color impervious surface. This class mainly contains road and parking lots.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Bare Soil &amp; Concrete</td>
+<td>This class includes bare soil, sand, gravel, and rock in urban and desert environments. It also contains light color
+impervious surface such as concrete.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Tree &amp; Shrub&amp;</td>
+<td>This class contains trees and shrubs that are higher than 1.5-meter.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Grass&amp;</td>
+<td>This class is mainly turf grass. It may also contain shrubs that are lower than 1.5-meter.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Water</td>
+<td>This class includes different types of water bodies, such as lake, pond, canal, and swimming pools.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Active Cropland</td>
+<td>This class is cropland covered by green vegetation.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Fallow</td>
+<td>This class is cropland without green vegetation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="accuracy-assessment-table">Accuracy Assessment Table</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Correctly Classified count</th>
+<th>Reference count</th>
+<th>Classified count</th>
+<th>Producer&rsquo;s Accuracy</th>
+<th>User&rsquo;s Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Building</td>
+<td>49</td>
+<td>49</td>
+<td>50</td>
+<td>100.00%</td>
+<td>98.00%</td>
+</tr>
+<tr>
+<td>Asphalt</td>
+<td>48</td>
+<td>52</td>
+<td>50</td>
+<td>92.30%</td>
+<td>96.00%</td>
+</tr>
+<tr>
+<td>Bare Soil &amp; Concrete</td>
+<td>45</td>
+<td>55</td>
+<td>50</td>
+<td>81.80%</td>
+<td>90.00%</td>
+</tr>
+<tr>
+<td>Tree &amp; Shrub&amp;</td>
+<td>46</td>
+<td>50</td>
+<td>50</td>
+<td>92.00%</td>
+<td>92.00%</td>
+</tr>
+<tr>
+<td>Grass&amp;</td>
+<td>45</td>
+<td>49</td>
+<td>50</td>
+<td>91.80%</td>
+<td>90.00%</td>
+</tr>
+<tr>
+<td>Water</td>
+<td>49</td>
+<td>50</td>
+<td>50</td>
+<td>98.00%</td>
+<td>98.00%</td>
+</tr>
+<tr>
+<td>Active Cropland</td>
+<td>48</td>
+<td>49</td>
+<td>50</td>
+<td>98.00%</td>
+<td>96.00%</td>
+</tr>
+<tr>
+<td>Fallow</td>
+<td>46</td>
+<td>46</td>
+<td>50</td>
+<td>100.00%</td>
+<td>92.00%</td>
+</tr>
+<tr>
+<td>Overall Accuracy</td>
+<td></td>
+<td></td>
+<td>94.00%</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Producer&rsquo;s accuracy = Correctly Classified count / Reference count</li>
+<li>User&rsquo;s accuracy = Correctly Classified count / Classified count</li>
+<li>Overall accuracy = Sum of Correctly Classified count/ Sum of Reference (or Classified) count</li>
+<li>&amp;: Lidar data only covered 21% of the study area. Within the Lidar data extent, tree and grass achieved higher accuracy
+&gt;95%. Beyond Lidar coverage, the tree versus grass classification was less accurate due to the lack of surface height
+information. As a result, tree and grass achieved accuracies of 90% - 92% over the entire study area.</li>
+</ul></div><div>
+    CENTER PLAIN TEXT, LINE 1 OF 2
+    CENTER PLAIN TEXT, LINE 2 OF 2
+    </div><div><h1 id="markdown-text-2-of-2">MARKDOWN TEXT 2 OF 2</h1>
+<h2 id="laboratory-procedure">Laboratory Procedure</h2>
+<p>Sediment samples were divided in half to run for chlorophyll and AFDM. Rock samples were scrubbed in a glass dish using a
+toothbrush. Excess water in each field sample container was filtered into folded 110 mm GF/A filt<br />
+ers into a 200ml beaker. Algae from scrubbed rocks were also poured through GF/A filters. Algae remaining on dish and rocks were
+washed into filters using as little DI water as possible. Filters were cut in half for analysis of chlorophyll a and AFDM. Se<br
+/>
+diment along with half of the respective filters was placed together into a 200 mL beaker. Filters from rocks were also placed in
+200 mL beakers. 20 mL of reagent grade methanol was added to beakers. Beakers were placed in water bath and allowed to boil<br />
+at 80-85 degrees C for 2-4 minutes. Next, extract from each sample was poured into separate 100 ml beakers. Methanol addition and
+boiling was repeated until no green pigment was visible on sediment, filter, or in extract. After final extraction, the tota<br />
+l volume of extract collected for each sample was filtered through a GF/F filter (a GF/A was used for samples collected in
+2010-2013). Filtered extract was poured into a graduated cylinder. The volume of extract was increased to the nearest 20 ml line
+by<br />
+adding methanol. Volume was recorded and samples covered with parafilm to minimize evaporation. Absorbance values of extracts were
+measured at 750, 666, and 480 nm before and after acidification (see table below) using a Beckman DU® 530 Spectrophotomete<br />
+r.</p>
+<table>
+<thead>
+<tr>
+<th>EXTRACT VOL</th>
+<th>ACID ADDITION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>40 mL</td>
+<td>2.2 mL [40 mL] HCl</td>
+</tr>
+<tr>
+<td>60 mL</td>
+<td>2.2 mL [60 mL] HCl</td>
+</tr>
+<tr>
+<td>80 mL</td>
+<td>4.4 mL [40 mL] HCl</td>
+</tr>
+<tr>
+<td>100 mL</td>
+<td>2.2 mL [40 mL] HCl + 2.2 mL [60 mL] HCl</td>
+</tr>
+<tr>
+<td>120 mL</td>
+<td>4.4 mL [60 mL] HCl</td>
+</tr>
+<tr>
+<td>140 mL</td>
+<td>4.4 ml [40 mL] HCl + 2.2 mL [60 mL] HCl</td>
+</tr>
+</tbody>
+</table>
+<p>Chlorophyll calculations are made as follows:</p>
+<p><em>Chl a (mg/m<sup>2</sup>) = 219. 2(D666-D666a) * v / A</em></p>
+<p>where 219.2 is the absorption coefficient for chlorophyll a in methanol times the conversion from ug/cm<sup>2</sup> to
+mg/m<sup>2</sup>; v is extraction volume in mL; A is area of the sampled sub<br />
+strate, 12.315 cm<sup>2</sup>, half the area of collected core; D666 is absorbance at 666 minus absorbance at 750 before
+acidification, and D666a is absorbance at 666 minus absorbance at 750 after acidification.</p></div><div><div class="section"><div
+class="titlepage"><hr/></div>
+      <p>
+        <span style="color: red">&lt;literalLayout&gt;
+          Text in a LiteralLayout element, line 1 of 2
+          Text in a LiteralLayout element, line 2 of 2
+        &lt;/literalLayout&gt;</span>
+      </p>
+      <p>
+        <span style="color: red">&lt;literalLayout&gt;
+        &lt;/literalLayout&gt;</span>
+        <span class="emphasis"><em>
+          Text in a emphasis element, line 1 of 2
+          Text in a emphasis element, line 2 of 2
+        </em></span>
+      </p>
+    </div>
+</div><div>
+    ENDING PLAIN TEXT, LINE 1 OF 2
+    ENDING PLAIN TEXT, LINE 2 OF 2
+  </div>

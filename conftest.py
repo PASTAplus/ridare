@@ -6,7 +6,11 @@ https://pytest-flask.readthedocs.io/en/latest/
 import logging
 import os
 import pathlib
+import sys
 import tempfile
+import types
+
+import tests.util.sample
 
 # import pandas as pd
 import pytest
@@ -25,6 +29,57 @@ logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 PROJ_ROOT = pathlib.Path(__file__).parent.resolve()
 TEST_DOCS = PROJ_ROOT / 'tests/test_docs'
+
+
+# Hooks
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        '--sample-error',
+        dest='sample_error',
+        action='store_true',
+        default=False,
+        help='Handle sample mismatch as test failure instead of opening diff viewer',
+    )
+    parser.addoption(
+        '--sample-update',
+        dest='sample_update',
+        action='store_true',
+        default=False,
+        help='Update mismatched samples instead of opening diff viewer',
+    )
+
+
+# @pytest.fixture(autouse=True)
+# def sample_options(request):
+#     return types.SimpleNamespace(
+#         error=request.config.getoption("--sample-error"),
+#         update=request.config.getoption("--sample-update"),
+#     )
+
+
+def pytest_configure(config):
+    """Allow plugins and conftest files to perform initial configuration
+
+    This hook is called for every plugin and initial conftest file after command line
+    options have been parsed.
+
+    After that, the hook is called for other conftest files as they are imported.
+    """
+    sys.is_running_under_travis = "TRAVIS" in os.environ
+    sys.is_running_under_pytest = True
+
+    tests.util.sample.options = types.SimpleNamespace(
+        error=config.getoption("--sample-error"),
+        update=config.getoption("--sample-update"),
+    )
+
+    # Only accept error messages from loggers that are noisy at debug.
+    logging.getLogger('django.db.backends.schema').setLevel(logging.ERROR)
+
+
+
 
 # Implicit fixtures (autouse = True)
 
