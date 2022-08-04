@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import io
 import pathlib
 
 import daiquiri
 import lxml.etree
-import markdown
 
 import webapp.config
+import webapp.eml_text_type
 import webapp.exceptions
 import webapp.utils
-
-import webapp.eml_text_type
 
 log = daiquiri.getLogger(__name__)
 
@@ -92,7 +89,7 @@ def get_html(
             f'There are more than 1 matches. text_xpath="{text_xpath}" len="{len(text_el_list)}"'
         )
 
-    html_str = eml_text_type.text_to_html(text_el_list[0])
+    html_str = webapp.eml_text_type.text_to_html(text_el_list[0])
 
     file_path.write_text(html_str, encoding='utf-8')
 
