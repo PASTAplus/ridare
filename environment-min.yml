@@ -11,6 +11,8 @@ dependencies:
   - uwsgi
   - jinja2
   - flask
+  - markdown
+  - grip
   - pip
   - pip:
       - lxml==4.9.1

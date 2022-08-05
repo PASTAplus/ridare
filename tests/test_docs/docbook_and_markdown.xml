@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sample>
+  <texttype>
+    LEADING PLAIN TEXT, LINE 1 OF 2
+    LEADING PLAIN TEXT, LINE 2 OF 2
+    <markdown>
+      # MARKDOWN TEXT 1 OF 2
+
+      ## Methods and Protocols
+
+      The 1-meter land cover map was generated primarily using the 2015 NAIP imagery. It has eight land cover classes and achieved an overall accuracy of 94%. This detailed land cover map was created in the eCognition software using the object-based classification approach. The first step was NAIP image segmentation, where pixels with similar spectral and spatial characteristics were grouped into parcel sized or finer objects. Next, hierarchical rule-based expert systems were developed to classify the objects into specific land cover classes based on their spectral, morphological, and contextual attributes.
+      Various auxiliary GIS data were utilized to improve classification accuracy. They include the 2015 cadastral parcel data, the 2014 USGS Lidar data (1-meter), the 2014 Microsoft/OpenStreetMap Building Footprint data, the 2015 Street TIGER/Line, and the previous NAIP-based land cover map for the year of 2010. Specifically, building footprints and Lidar data significantly improved the boundary detection of above-ground objects. Compared to the 2010 NAIP-based land cover map, buildings and tree canopy shapes were classified more accurately. Finally, post-classification manual editing was applied to minimize classification errors.
+
+      ## Land Cover Class Description
+
+      | Class ID | Class Name           | Description                                                                                                                                               |
+      |----------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+      | 1        | Building             | This class contains all types of buildings in residential, commercial, and industrial areas.                                                              |
+      | 2        | Asphalt              | This is the dark color impervious surface. This class mainly contains road and parking lots.                                                              |
+      | 3        | Bare Soil &amp; Concrete | This class includes bare soil, sand, gravel, and rock in urban and desert environments. It also contains light color impervious surface such as concrete. |
+      | 4        | Tree &amp; Shrub&amp;        | This class contains trees and shrubs that are higher than 1.5-meter.                                                                                      |
+      | 5        | Grass&amp;               | This class is mainly turf grass. It may also contain shrubs that are lower than 1.5-meter.                                                                |
+      | 6        | Water                | This class includes different types of water bodies, such as lake, pond, canal, and swimming pools.                                                       |
+      | 7        | Active Cropland      | This class is cropland covered by green vegetation.                                                                                                       |
+      | 8        | Fallow               | This class is cropland without green vegetation.                                                                                                          |
+
+      ## Accuracy Assessment Table
+      | Class                | Correctly Classified count | Reference count | Classified count | Producer's Accuracy | User's Accuracy |
+      |----------------------|----------------------------|-----------------|------------------|-----------------------|-------------------|
+      | Building             | 49                         | 49              | 50               | 100.00%               | 98.00%            |
+      | Asphalt              | 48                         | 52              | 50               | 92.30%                | 96.00%            |
+      | Bare Soil &amp; Concrete | 45                         | 55              | 50               | 81.80%                | 90.00%            |
+      | Tree &amp; Shrub&amp;        | 46                         | 50              | 50               | 92.00%                | 92.00%            |
+      | Grass&amp;               | 45                         | 49              | 50               | 91.80%                | 90.00%            |
+      | Water                | 49                         | 50              | 50               | 98.00%                | 98.00%            |
+      | Active Cropland      | 48                         | 49              | 50               | 98.00%                | 96.00%            |
+      | Fallow               | 46                         | 46              | 50               | 100.00%               | 92.00%            |
+      | Overall Accuracy     |                            |                 | 94.00%           |                       |                   |
+
+      * Producer's accuracy = Correctly Classified count / Reference count
+      * User's accuracy = Correctly Classified count / Classified count
+      * Overall accuracy = Sum of Correctly Classified count/ Sum of Reference (or Classified) count
+      * &amp;: Lidar data only covered 21% of the study area. Within the Lidar data extent, tree and grass achieved higher accuracy &gt;95%. Beyond Lidar coverage, the tree versus grass classification was less accurate due to the lack of surface height information. As a result, tree and grass achieved accuracies of 90% - 92% over the entire study area.
+    </markdown>
+    CENTER PLAIN TEXT, LINE 1 OF 2
+    CENTER PLAIN TEXT, LINE 2 OF 2
+    <markdown>
+      # MARKDOWN TEXT 2 OF 2
+
+      ## Laboratory Procedure
+
+      Sediment samples were divided in half to run for chlorophyll and AFDM. Rock samples were scrubbed in a glass dish using a toothbrush. Excess water in each field sample container was filtered into folded 110 mm GF/A filt
+      ers into a 200ml beaker. Algae from scrubbed rocks were also poured through GF/A filters. Algae remaining on dish and rocks were washed into filters using as little DI water as possible. Filters were cut in half for analysis of chlorophyll a and AFDM. Se
+      diment along with half of the respective filters was placed together into a 200 mL beaker. Filters from rocks were also placed in 200 mL beakers. 20 mL of reagent grade methanol was added to beakers. Beakers were placed in water bath and allowed to boil
+      at 80-85 degrees C for 2-4 minutes. Next, extract from each sample was poured into separate 100 ml beakers. Methanol addition and boiling was repeated until no green pigment was visible on sediment, filter, or in extract. After final extraction, the tota
+      l volume of extract collected for each sample was filtered through a GF/F filter (a GF/A was used for samples collected in 2010-2013). Filtered extract was poured into a graduated cylinder. The volume of extract was increased to the nearest 20 ml line by
+      adding methanol. Volume was recorded and samples covered with parafilm to minimize evaporation. Absorbance values of extracts were measured at 750, 666, and 480 nm before and after acidification (see table below) using a Beckman DU® 530 Spectrophotomete
+      r.
+
+      | EXTRACT VOL | ACID ADDITION                           |
+      |-------------|-----------------------------------------|
+      | 40 mL       | 2.2 mL [40 mL] HCl                      |
+      | 60 mL       | 2.2 mL [60 mL] HCl                      |
+      | 80 mL       | 4.4 mL [40 mL] HCl                      |
+      | 100 mL      | 2.2 mL [40 mL] HCl + 2.2 mL [60 mL] HCl |
+      | 120 mL      | 4.4 mL [60 mL] HCl                      |
+      | 140 mL      | 4.4 ml [40 mL] HCl + 2.2 mL [60 mL] HCl |
+
+      Chlorophyll calculations are made as follows:
+
+      _Chl a (mg/m&lt;sup&gt;2&lt;/sup&gt;) = 219. 2(D666-D666a) * v / A_
+
+      where 219.2 is the absorption coefficient for chlorophyll a in methanol times the conversion from ug/cm&lt;sup&gt;2&lt;/sup&gt; to mg/m&lt;sup&gt;2&lt;/sup&gt;; v is extraction volume in mL; A is area of the sampled sub
+      strate, 12.315 cm&lt;sup&gt;2&lt;/sup&gt;, half the area of collected core; D666 is absorbance at 666 minus absorbance at 750 before acidification, and D666a is absorbance at 666 minus absorbance at 750 after acidification.
+    </markdown>
+    <section >
+      <para >
+        <literalLayout>
+          Text in a LiteralLayout element, line 1 of 2
+          Text in a LiteralLayout element, line 2 of 2
+        </literalLayout>
+      </para>
+      <para >
+        <literalLayout>
+        </literalLayout>
+        <emphasis >
+          Text in a emphasis element, line 1 of 2
+          Text in a emphasis element, line 2 of 2
+        </emphasis>
+      </para>
+    </section>
+    ENDING PLAIN TEXT, LINE 1 OF 2
+    ENDING PLAIN TEXT, LINE 2 OF 2
+  </texttype>
+</sample>
