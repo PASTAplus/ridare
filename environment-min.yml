@@ -4,16 +4,15 @@ channels:
   - defaults
 dependencies:
   - python=3.10
-  - libiconv
-  - pytest
-  - daiquiri
+  - pip
   - requests
   - uwsgi
-  - jinja2
+  - daiquiri
+  - libiconv
   - flask
+  - jinja2
   - markdown
   - grip
-  - pip
-  - pip:
-      - lxml==4.9.1
+  - pytest
+  - filelock
 prefix: /home/servilla/anaconda3/envs/ridare
