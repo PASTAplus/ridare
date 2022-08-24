@@ -7,7 +7,6 @@ import logging
 import os
 import pathlib
 import sys
-import tempfile
 import types
 
 import tests.util.sample
@@ -159,9 +158,3 @@ def docbook_and_markdown():
 def markdown_table_md():
     """A str that contains a simple markdown table"""
     return (TEST_DOCS / 'markdown_table.md').read_text()
-
-
-@pytest.fixture
-def markdown_table_html():
-    """A str that contains a simple markdown table as HTML"""
-    return (TEST_DOCS / 'markdown_table.html').read_text()

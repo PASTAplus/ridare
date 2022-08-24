@@ -9,7 +9,7 @@ import webapp.eml_text_type as eml_text_type
 import tests.util.sample as sample
 
 
-def test_markdown_table(markdown_table_md: str, markdown_table_html: str):
+def test_markdown_table(markdown_table_md: str):
     markdown_html_str = markdown.markdown(
         markdown_table_md, extensions=eml_text_type.DEFAULT_MARKDOWN_EXTENSIONS
     )
@@ -27,7 +27,7 @@ def test_find_immediate_children(complete_eml: lxml.etree.Element):
 def test_markdown_to_html(complete_eml: lxml.etree.Element):
     markdown_el = complete_eml.xpath('.//funding//markdown[1]')[0]
     html_str = eml_text_type._markdown_to_html(markdown_el)
-    assert html_str == '<p>markdown0</p>'
+    sample.assert_match(html_str, 'markdown_html', '.html')
 
 
 def test_text_to_html(complete_eml: lxml.etree.Element):
