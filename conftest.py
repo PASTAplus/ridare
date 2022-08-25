@@ -23,7 +23,6 @@ import lxml.etree
 
 import webapp.run
 
-
 logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 PROJ_ROOT = pathlib.Path(__file__).parent.resolve()
@@ -78,8 +77,6 @@ def pytest_configure(config):
     logging.getLogger('django.db.backends.schema').setLevel(logging.ERROR)
 
 
-
-
 # Implicit fixtures (autouse = True)
 
 
@@ -101,18 +98,18 @@ def app():
 
 
 @pytest.fixture
-def tmpdir(config, tmpdir):
+def tmpdir(tmpdir) -> pathlib.Path:
     return pathlib.Path(tmpdir)
 
 
 @pytest.fixture
-def docs_path():
+def docs_path() -> pathlib.Path:
     return TEST_DOCS
 
 
 @pytest.fixture
-def complete_eml():
-    """A complete sample EML doc, returned in the lxml.etree domain.
+def complete_eml() -> lxml.etree.ElementTree:
+    """A complete sample EML doc.
 
     Generated from the EML 2.2.0 XML Schema with Oxygen, limited to a depth of 20
     levels. Then hand edited to add sample text and schemaLocations.
@@ -122,22 +119,15 @@ def complete_eml():
 
 
 @pytest.fixture
-def docbook_xml():
-    """A sample DocBook doc, returned in the lxml.etree domain."""
+def docbook_xml() -> lxml.etree.ElementTree:
+    """A sample DocBook doc."""
     xml_path = TEST_DOCS / 'docbook.xml'
     return lxml.etree.parse(xml_path.as_posix())
 
 
 @pytest.fixture
-def docbook_html():
-    """A DocBook doc, transformed to HTML, returned as a str."""
-    return (TEST_DOCS / 'docbook.html').read_text()
-
-
-@pytest.fixture
-def eml_with_complex_docbook():
-    """A EML doc with extensive DocBook structures, returned in the
-    lxml.etree domain.
+def eml_with_complex_docbook() -> lxml.etree.ElementTree:
+    """A EML doc with extensive DocBook structures.
 
     Found with:
     $ cd dex-data/___data
@@ -148,13 +138,13 @@ def eml_with_complex_docbook():
 
 
 @pytest.fixture
-def docbook_and_markdown():
-    """A that contains a mix of DocBook and markdown elements."""
+def docbook_and_markdown() -> str:
+    """An XML doc with a mix of DocBook and markdown elements."""
     xml_path = TEST_DOCS / 'docbook_and_markdown.xml'
     return lxml.etree.parse(xml_path.as_posix())
 
 
 @pytest.fixture
-def markdown_table_md():
-    """A str that contains a simple markdown table"""
+def markdown_table_md() -> str:
+    """A simple markdown table."""
     return (TEST_DOCS / 'markdown_table.md').read_text()

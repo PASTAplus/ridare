@@ -100,8 +100,7 @@ def _docbook_to_html(docbook_el: lxml.etree.Element, xsl_path: pathlib.Path = XS
     xslt_el = lxml.etree.parse(xsl_path.as_posix())
     transform_func = lxml.etree.XSLT(xslt_el)
     html_el = transform_func(docbook_el)
-    # return get_etree_as_pretty_printed_xml(html_el)
-    return get_etree_as_pretty_printed_xml(html_el.xpath('/html/body/div')[0])
+    return get_etree_as_pretty_printed_xml(html_el.xpath('/html/body/*')[0])
 
 
 def first_str(el: lxml.etree.Element, text_xpath: str, default_val: bool = None) -> str:
