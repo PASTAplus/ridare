@@ -26,7 +26,7 @@ def help():
     return flask.redirect(redirect_url, 301)
 
 
-@app.route("/<pid>/<element_str>")
+@app.route("/<pid_str>/<element_str>")
 def markdown(pid_str, element_str):
     env = flask.request.args.get("env")
     if env is None:
