@@ -27,18 +27,20 @@ def help():
 
 
 @app.route("/<pid>/<element_str>")
-def markdown(element_str, pid=None):
+def markdown(pid_str, element_str):
     env = flask.request.args.get("env")
     if env is None:
         env = webapp.config.Config.DEFAULT_ENV
 
     try:
-        markdown_str = webapp.markdown_cache.get_html(pid, element_str, env)
+        markdown_str = webapp.markdown_cache.get_html(pid_str, element_str, env)
         response = flask.make_response(markdown_str)
         response.headers["Content-Type"] = f"text/html; charset=utf-8"
         return response
     except Exception as e:
-        logger.error(e)
+        logger.exception(
+            f'Exception when handling request. element="{element_str}" pid="{pid_str}"'
+        )
         flask.abort(400, description=e)
 
 
