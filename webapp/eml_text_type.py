@@ -58,7 +58,7 @@ def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
             html_list.append(_docbook_to_html(text_el))
         if text_el.tail.strip():
             html_list.append(text_el.tail)
-    return RIDARE_SECTION_TEMPLATE_STR.format("</div><div>".join(html_list))
+    return RIDARE_SECTION_TEMPLATE_STR.format("".join(html_list))
 
 
 def _text_to_html(text_str: str):
