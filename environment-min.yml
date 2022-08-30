@@ -6,7 +6,6 @@ dependencies:
   - python=3.10
   - pip
   - requests
-  - uwsgi
   - daiquiri
   - libiconv
   - flask
@@ -15,4 +14,6 @@ dependencies:
   - grip
   - pytest
   - filelock
+  - lxml
+  - gunicorn
 prefix: /home/servilla/anaconda3/envs/ridare
