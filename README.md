@@ -87,6 +87,12 @@ On failure, a HTTP response with status of 4xx or 500x is returned as follows:
 
 The HTTP document body may contain more information about the nature of the failure.
 
+## Install
+
+- Clone from GitHub
+- Download DocBook XSLs and uncompress into the root of the project
+  - https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.zip
+
 ## Notes
 
 [Overview of markdown support in EML 2.2.0](https://eml.ecoinformatics.org/whats-new-in-eml-2-2-0.html)
