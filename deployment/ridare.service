@@ -7,7 +7,7 @@ User=pasta
 Group=www-data
 WorkingDirectory=/home/pasta/ridare
 Environment="PATH=/home/pasta/anaconda3/envs/ridare/bin"
-ExecStart=/home/pasta/anaconda3/envs/ridare/bin/uwsgi --ini deployment/ridare.ini
+ExecStart=/home/pasta/anaconda3/envs/ridare/bin/gunicorn --workers 4 --bind unix:/tmp/ridare.sock -m 007 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
