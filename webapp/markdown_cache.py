@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import pathlib
+import re
 
 import daiquiri
 import lxml.etree
@@ -12,31 +11,13 @@ import webapp.utils
 
 log = daiquiri.getLogger(__name__)
 
-# EML_XPATH_DICT = {
-#    'abstract': '[.//]dataset/abstract/text()',
-#     'description': './/dataset/methods/methodStep/description/markdown/text()',
-#     'related_abstract': './/dataset/project/relatedProject/abstract/markdown/text()',
-#     'related_funding': './/dataset/project/relatedProject/funding/markdown/text()',
-# }
-
-TEXT_XPATH_DICT = {
-    'abstract': './/dataset/abstract',
-    'description': './/dataset/methods/methodStep/description',
-    'related_abstract': './/dataset/project/relatedProject/abstract',
-    'related_funding': './/dataset/project/relatedProject/funding',
-    'intellectualRights': './/dataset/project/relatedProject/funding',
-}
-
-THIS_PATH = pathlib.Path(__file__).parent.resolve()
-
-
 # Disable using the cache for easier debugging.
 USE_CACHE = False
 
 
 def get_html(
     pid: str,
-    element_str: str,
+    text_xpath: str,
     env: str,
 ):
     """Get HTML fragment for markdown element in EML"""
@@ -56,7 +37,7 @@ def get_html(
         msg = f"Requested PASTA environment not supported: {env}"
         raise webapp.exceptions.PastaEnvironmentError(msg)
 
-    file_path = pathlib.Path(cache, f'{element_str}-{pid}.html')
+    file_path = pathlib.Path(cache, f'{safe_filename(text_xpath)}-{safe_filename(pid)}.html')
     file_path.parent.mkdir(parents=False, exist_ok=True)
 
     if USE_CACHE and file_path.is_file():
@@ -76,17 +57,14 @@ def get_html(
         raise webapp.exceptions.DataPackageError(msg)
 
     root_el = lxml.etree.fromstring(eml)
-    text_xpath = TEXT_XPATH_DICT[element_str]
 
     text_el_list = root_el.xpath(text_xpath)
     if not text_el_list:
-        raise webapp.exceptions.DataPackageError(
-            f'Unable to extract text. text_xpath="{text_xpath}"'
-        )
+        raise webapp.exceptions.DataPackageError(f'Element not found. text_xpath="{text_xpath}"')
 
     if len(text_el_list) > 1:
         raise webapp.exceptions.DataPackageError(
-            f'There are more than 1 matches. text_xpath="{text_xpath}" len="{len(text_el_list)}"'
+            f'There is more than one matching element. text_xpath="{text_xpath}" len="{len(text_el_list)}"'
         )
 
     html_str = webapp.eml_text_type.text_to_html(text_el_list[0])
@@ -94,3 +72,7 @@ def get_html(
     file_path.write_text(html_str, encoding='utf-8')
 
     return html_str
+
+
+def safe_filename(text_xpath):
+    return re.sub(r'[^a-zA-Z0-9]', '_', text_xpath)

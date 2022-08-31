@@ -16,6 +16,18 @@ By default, the service looks for DataPackages in the PASTA+ production (`p`, `p
 or `production`) environment. Data packages can also be read from the development (`d`
 , `dev` or `development`) or staging (`s`, `stage` or `staging`) environments.
 
+### Xpaths
+
+Xpaths to commonly used EML TextType elements: 
+
+| TextType Element                                                 | Xpath                                    |
+|------------------------------------------------------------------|------------------------------------------|
+| Abstract                                                         | /dataset/abstract                        |
+| Description of a step of a procedure used for creating a dataset | /dataset/methods/methodStep/description  |
+| Abstract for a project related to a dataset                      | /dataset/project/relatedProject/abstract | 
+| Funding source for a project related to a dataset                | /dataset/project/relatedProject/funding  |
+
+
 ### Examples
 
 Retrieve the `abstract` for the `edi.521.1` DataPackage, in the `production`
@@ -34,7 +46,7 @@ $ curl https://ridare.edirepository.org/edi.521.1/%2Fabstract?env=d
 
 Retrieve the `funding for related document` (
 Xpath `/dataset/project/relatedProject/funding/`) for the `knb-lter-cap.689.1`
-DataPackage, in the development environment:
+DataPackage, in the `development` environment:
 
 ```shell
 $ curl https://ridare.edirepository.org/\

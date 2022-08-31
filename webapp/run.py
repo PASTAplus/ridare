@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import logging
 import os
@@ -18,7 +17,6 @@ logger = daiquiri.getLogger("run.py: " + __name__)
 app = flask.Flask(__name__)
 app.config.from_object(webapp.config.Config)
 
-
 @app.route("/")
 @app.route("/help")
 def help():
@@ -26,20 +24,20 @@ def help():
     return flask.redirect(redirect_url, 301)
 
 
-@app.route("/<pid_str>/<element_str>")
-def markdown(pid_str, element_str):
+@app.route("/<path:pid_str>/<path:text_xpath>")
+def markdown(pid_str, text_xpath):
     env = flask.request.args.get("env")
     if env is None:
         env = webapp.config.Config.DEFAULT_ENV
 
     try:
-        markdown_str = webapp.markdown_cache.get_html(pid_str, element_str, env)
+        markdown_str = webapp.markdown_cache.get_html(pid_str, text_xpath, env)
         response = flask.make_response(markdown_str)
         response.headers["Content-Type"] = f"text/html; charset=utf-8"
         return response
     except Exception as e:
         logger.exception(
-            f'Exception when handling request. element="{element_str}" pid="{pid_str}"'
+            f'Exception when handling request. element="{text_xpath}" pid="{pid_str}"'
         )
         flask.abort(400, description=e)
 

@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 class DataPackageError(Exception):
     """Raised when a requested PASTA data package does not exist
     Args:
