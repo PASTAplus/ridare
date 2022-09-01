@@ -24,11 +24,14 @@ def help():
     return flask.redirect(redirect_url, 301)
 
 
-@app.route("/<path:pid_str>/<path:text_xpath>")
-def markdown(pid_str, text_xpath):
-    env = flask.request.args.get("env")
-    if env is None:
-        env = webapp.config.Config.DEFAULT_ENV
+@app.route("/<path:pid_xpath>", strict_slashes=False, merge_slashes=False)
+def markdown(pid_xpath):
+    if '/' not in pid_xpath:
+        flask.abort(404)
+
+    pid_str, text_xpath = pid_xpath.split("/", 1)
+
+    env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
 
     try:
         markdown_str = webapp.markdown_cache.get_html(pid_str, text_xpath, env)
