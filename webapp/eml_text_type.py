@@ -34,7 +34,15 @@ DEFAULT_MARKDOWN_EXTENSIONS = [
 ]
 
 def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
-    """Return the contents of an EML TextType element or subtree as an HTML fragment"""
+    """Return the contents of an EML TextType element or subtree as an HTML fragment
+
+    Returned fragment is on the form:
+
+    <div>
+        <div>Section of HTML formatted markdown, DocBook, plain text, etc</div>
+        <div>...</div>
+    </div>
+    """
     html_list = []
     if text_type_el.text.strip():
         html_list.append(_text_to_html(text_type_el.text))
@@ -45,7 +53,7 @@ def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
             html_list.append(_docbook_to_html(text_el))
         if text_el.tail.strip():
             html_list.append(text_el.tail)
-    return f'<div>{"</div><div>".join(html_list)}</div>'
+    return f'<div><div>{"</div><div>".join(html_list)}</div></div>'
 
 
 def _text_to_html(text_str: str):
