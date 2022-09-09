@@ -1,10 +1,15 @@
 class Config(object):
-
     # Flask app configuration
+
+    # Generate the secret key with ./tools/generate-secret-key.py
     SECRET_KEY = 'SECRET KEY'
     DEBUG = False
 
     # Webapp configuration
+
+    # Set to False to disable using the cache for easier debugging.
+    USE_CACHE = True
+
     CACHE_P = 'cache location for production'
     CACHE_S = 'cache location for staging'
     CACHE_D = 'cache location for development'

@@ -11,9 +11,6 @@ import webapp.utils
 
 log = daiquiri.getLogger(__name__)
 
-# Disable using the cache for easier debugging.
-USE_CACHE = False
-
 
 def get_html(
     pid: str,
@@ -40,7 +37,7 @@ def get_html(
     file_path = pathlib.Path(cache, f'{safe_filename(text_xpath)}-{safe_filename(pid)}.html')
     file_path.parent.mkdir(parents=False, exist_ok=True)
 
-    if USE_CACHE and file_path.is_file():
+    if webapp.config.Config.USE_CACHE and file_path.is_file():
         return file_path.read_text(encoding='utf-8')
 
     scope, identifier, revision = pid.strip().split(".")
