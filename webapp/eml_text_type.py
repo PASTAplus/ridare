@@ -33,33 +33,19 @@ DEFAULT_MARKDOWN_EXTENSIONS = [
     'wikilinks',
 ]
 
-# Ridare returns a HTML fragment using this template.
-RIDARE_SECTION_TEMPLATE_STR: str = """
-    <div class="ridare-text">
-      <div class="ridare-content">
-        {}
-      </div>
-      <div class="ridare-more">
-      </div>
-    </div>
-"""
-
 def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
     """Return the contents of an EML TextType element or subtree as an HTML fragment"""
     html_list = []
     if text_type_el.text.strip():
         html_list.append(_text_to_html(text_type_el.text))
     for text_el in _find_immediate_children(text_type_el):
-        # if text_el.text.strip():
-        #     html_list.append(_text_to_html(text_el.text))
         if text_el.tag == 'markdown':
             html_list.append(_markdown_to_html(text_el))
         else:
             html_list.append(_docbook_to_html(text_el))
         if text_el.tail.strip():
             html_list.append(text_el.tail)
-    html_str = f'<div>{"</div><div>".join(html_list)}</div>'
-    return RIDARE_SECTION_TEMPLATE_STR.format(html_str)
+    return f'<div>{"</div><div>".join(html_list)}</div>'
 
 
 def _text_to_html(text_str: str):

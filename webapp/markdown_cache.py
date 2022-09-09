@@ -47,7 +47,7 @@ def get_html(
     eml_url = f"{pasta}/metadata/eml/{scope}/{identifier}/{revision}"
 
     try:
-        eml = webapp.utils.requests_wrapper(eml_url)
+        eml_bytes = webapp.utils.requests_wrapper(eml_url)
     except ValueError as e:
         log.error(e)
         raise
@@ -56,7 +56,10 @@ def get_html(
         msg = f'Error accessing data package "{pid}" in the "' f'{env}" environment'
         raise webapp.exceptions.DataPackageError(msg)
 
-    root_el = lxml.etree.fromstring(eml)
+    eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+    eml_path.write_bytes(eml_bytes)
+
+    root_el = lxml.etree.fromstring(eml_bytes)
 
     text_el_list = root_el.xpath(text_xpath)
     if not text_el_list:
