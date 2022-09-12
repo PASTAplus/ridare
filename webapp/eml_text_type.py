@@ -1,6 +1,6 @@
 """Functions for handling EML TextType elements
 """
-
+import io
 import pathlib
 import textwrap
 
@@ -11,7 +11,6 @@ import markdown
 import grip
 
 log = daiquiri.getLogger(__name__)
-
 
 THIS_PATH = pathlib.Path(__file__).parent.resolve()
 XSL_PATH = THIS_PATH / '../docbook-xsl-1.79.2/html/docbook.xsl'
@@ -33,6 +32,7 @@ DEFAULT_MARKDOWN_EXTENSIONS = [
     'wikilinks',
 ]
 
+
 def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
     """Return the contents of an EML TextType element or subtree as an HTML fragment
 
@@ -46,6 +46,9 @@ def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
     html_list = []
     if text_type_el.text.strip():
         html_list.append(_text_to_html(text_type_el.text))
+
+    text_type_el = fix_literal_layout(text_type_el)
+
     for text_el in _find_immediate_children(text_type_el):
         if text_el.tag == 'markdown':
             html_list.append(_markdown_to_html(text_el))
@@ -142,3 +145,32 @@ def get_etree_as_pretty_printed_xml(el: lxml.etree.Element) -> str:
     return lxml.etree.tostring(
         el, pretty_print=True, with_tail=False, xml_declaration=False
     ).decode('utf-8')
+
+
+def fix_literal_layout(xml_el):
+    """Work around 'literalLayout' bug in the EML spec.
+
+    EML specifies 'literalLayout' as a valid DocBook element, but the name is actually
+    literallayout (all lower case). This renames any `literalLayout` elements to
+    `literalelement` before processing with DocBook transforms.
+    """
+    rename_literal_layout_xsl = """\
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+      <xsl:template match="@*|node()">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </xsl:template>
+      <xsl:template match="literalLayout">
+        <literallayout>
+          <xsl:apply-templates select="@*|node()"/>
+        </literallayout>
+      </xsl:template>
+    </xsl:stylesheet>
+    """
+    xml_str = get_etree_as_pretty_printed_xml(xml_el)
+    log.info(f'LiteralLayout:\n----\n{xml_str}\n----\n')
+    xslt_el = lxml.etree.parse(io.StringIO(rename_literal_layout_xsl))
+    transform_func = lxml.etree.XSLT(xslt_el)
+    transformed_xml_el = transform_func(xml_el)
+    return transformed_xml_el
