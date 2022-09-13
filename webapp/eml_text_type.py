@@ -10,7 +10,7 @@ import lxml.objectify
 import markdown
 import grip
 
-from utils import get_etree_as_pretty_printed_xml
+import webapp.utils
 
 log = daiquiri.getLogger(__name__)
 
@@ -57,7 +57,7 @@ def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
         else:
             html_el = _docbook_to_html(text_el)
         clean_html_el = clean_html(html_el)
-        clean_html_str = get_etree_as_pretty_printed_xml(clean_html_el)
+        clean_html_str = webapp.utils.get_etree_as_pretty_printed_xml(clean_html_el)
         html_list.append(clean_html_str)
         if text_el.tail.strip():
             html_list.append(text_el.tail)
@@ -109,7 +109,7 @@ def _markdown_to_html(markdown_el: lxml.etree.Element, force_local: bool = False
     return lxml.etree.HTML(html_str)
 
 def _docbook_to_html(docbook_el: lxml.etree.Element, xsl_path: pathlib.Path = XSL_PATH) -> str:
-    xml_str = get_etree_as_pretty_printed_xml(docbook_el)
+    xml_str = webapp.utils.get_etree_as_pretty_printed_xml(docbook_el)
     log.info(f'Processing as DocBook hierarchy:\n----\n{xml_str}\n----\n')
     xslt_el = lxml.etree.parse(xsl_path.as_posix())
     transform_func = lxml.etree.XSLT(xslt_el)
