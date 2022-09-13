@@ -73,6 +73,57 @@ def get_html(
 
     return html_str
 
+def get_raw(
+    pid: str,
+    text_xpath: str,
+    env: str,
+):
+    """Get HTML fragment for markdown element in EML"""
+    if env.lower() in ("d", "dev", "development"):
+        pasta = webapp.config.Config.PASTA_D
+        cache = webapp.config.Config.CACHE_D
+        env = webapp.config.Config.ENV_D
+    elif env.lower() in ("s", "stage", "staging"):
+        pasta = webapp.config.Config.PASTA_S
+        cache = webapp.config.Config.CACHE_S
+        env = webapp.config.Config.ENV_S
+    elif env.lower() in ("p", "prod", "production"):
+        pasta = webapp.config.Config.PASTA_P
+        cache = webapp.config.Config.CACHE_P
+        env = webapp.config.Config.ENV_P
+    else:
+        msg = f"Requested PASTA environment not supported: {env}"
+        raise webapp.exceptions.PastaEnvironmentError(msg)
+
+    scope, identifier, revision = pid.strip().split(".")
+    eml_url = f"{pasta}/metadata/eml/{scope}/{identifier}/{revision}"
+
+    try:
+        eml_bytes = webapp.utils.requests_wrapper(eml_url)
+    except ValueError as e:
+        log.error(e)
+        raise
+    except Exception as e:
+        log.error(e)
+        msg = f'Error accessing data package "{pid}" in the "' f'{env}" environment'
+        raise webapp.exceptions.DataPackageError(msg)
+
+    eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+    eml_path.write_bytes(eml_bytes)
+
+    root_el = lxml.etree.fromstring(eml_bytes)
+
+    text_el_list = root_el.xpath(text_xpath)
+    if not text_el_list:
+        raise webapp.exceptions.DataPackageError(f'Element not found. text_xpath="{text_xpath}"')
+
+    if len(text_el_list) > 1:
+        raise webapp.exceptions.DataPackageError(
+            f'There is more than one matching element. text_xpath="{text_xpath}" len="{len(text_el_list)}"'
+        )
+
+    return webapp.utils.get_etree_as_pretty_printed_xml(text_el_list[0])
+
 
 def safe_filename(text_xpath):
     return re.sub(r'[^a-zA-Z0-9]', '_', text_xpath)

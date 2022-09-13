@@ -10,6 +10,8 @@ import lxml.objectify
 import markdown
 import grip
 
+from utils import get_etree_as_pretty_printed_xml
+
 log = daiquiri.getLogger(__name__)
 
 THIS_PATH = pathlib.Path(__file__).parent.resolve()
@@ -51,11 +53,15 @@ def text_to_html(text_type_el: lxml.etree.Element) -> [str]:
 
     for text_el in _find_immediate_children(text_type_el):
         if text_el.tag == 'markdown':
-            html_list.append(_markdown_to_html(text_el))
+            html_el = _markdown_to_html(text_el)
         else:
-            html_list.append(_docbook_to_html(text_el))
+            html_el = _docbook_to_html(text_el)
+        clean_html_el = clean_html(html_el)
+        clean_html_str = get_etree_as_pretty_printed_xml(clean_html_el)
+        html_list.append(clean_html_str)
         if text_el.tail.strip():
             html_list.append(text_el.tail)
+
     return f'<div><div>{"</div><div>".join(html_list)}</div></div>'
 
 
@@ -95,12 +101,12 @@ def _markdown_to_html(markdown_el: lxml.etree.Element, force_local: bool = False
     log.info(f'Processing as Markdown:\n----\n{dedent_markdown_str}\n----\n')
     log.info(f'Connecting to GitHub for markdown rendering...')
     try:
-        return grip.render_content(dedent_markdown_str)
+        html_str = grip.render_content(dedent_markdown_str)
     except Exception as e:
         log.warn(f'GitHub markdown rendering failed with exception: {str(e)}')
-    log.info(f'Using local markdown processor')
-    return markdown.markdown(dedent_markdown_str, extensions=DEFAULT_MARKDOWN_EXTENSIONS)
-
+        log.info(f'Using local markdown processor')
+        html_str = markdown.markdown(dedent_markdown_str, extensions=DEFAULT_MARKDOWN_EXTENSIONS)
+    return lxml.etree.HTML(html_str)
 
 def _docbook_to_html(docbook_el: lxml.etree.Element, xsl_path: pathlib.Path = XSL_PATH) -> str:
     xml_str = get_etree_as_pretty_printed_xml(docbook_el)
@@ -108,53 +114,20 @@ def _docbook_to_html(docbook_el: lxml.etree.Element, xsl_path: pathlib.Path = XS
     xslt_el = lxml.etree.parse(xsl_path.as_posix())
     transform_func = lxml.etree.XSLT(xslt_el)
     html_el = transform_func(docbook_el)
-    return get_etree_as_pretty_printed_xml(html_el.xpath('/html/body/*')[0])
-
-
-def first_str(el: lxml.etree.Element, text_xpath: str, default_val: bool = None) -> str:
-    """Apply xpath and, if there is a match, assume that the match is a text node, and
-    convert it to str.
-
-    {text_xpath} is an xpath that returns a text node. E.g., `.//text()`.
-    """
-    res_el = first(el, text_xpath)
-    if res_el is None:
-        return default_val
-    return str(res_el).strip()
-
-
-def first(el: lxml.etree.Element, xpath: str) -> str:
-    """Return the first match to the xpath if there was a match, else None. Can this be
-    done directly in xpath 1.0?
-    """
-    # log.debug(f'first() xpath={xpath} ...')
-    res_el = el.xpath(f'({xpath})[1]')
-    try:
-        el = res_el[0]
-    except IndexError:
-        el = None
-    # log.debug(f'first() -> {el}')
-    return el
-
-
-def get_etree_as_pretty_printed_xml(el: lxml.etree.Element) -> str:
-    """etree to pretty printed XML"""
-    # assert isinstance(el, lxml.etree._Element), f'Expected Element. Received {type(el)}'
-    if hasattr(el, 'getroottree'):
-        lxml.objectify.deannotate(el.getroottree(), cleanup_namespaces=True, xsi_nil=True)
-    return lxml.etree.tostring(
-        el, pretty_print=True, with_tail=False, xml_declaration=False
-    ).decode('utf-8')
+    return html_el.xpath('/html/body/*')[0]
 
 
 def fix_literal_layout(xml_el):
-    """Work around 'literalLayout' bug in the EML spec.
+    """Workaround 'literalLayout' bug in the EML spec.
+
+    This renames any `literalLayout` elements to `literallayout` before processing with
+    DocBook transforms.
 
     EML specifies 'literalLayout' as a valid DocBook element, but the name is actually
-    literallayout (all lower case). This renames any `literalLayout` elements to
-    `literalelement` before processing with DocBook transforms.
+    literallayout (all lower case).
     """
-    rename_literal_layout_xsl = """\
+    # language=xsl
+    xsl_str = """\
     <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <xsl:template match="@*|node()">
         <xsl:copy>
@@ -168,9 +141,32 @@ def fix_literal_layout(xml_el):
       </xsl:template>
     </xsl:stylesheet>
     """
-    xml_str = get_etree_as_pretty_printed_xml(xml_el)
-    log.info(f'LiteralLayout:\n----\n{xml_str}\n----\n')
-    xslt_el = lxml.etree.parse(io.StringIO(rename_literal_layout_xsl))
+    # xml_str = get_etree_as_pretty_printed_xml(xml_el)
+    # log.info(f'LiteralLayout:\n----\n{xml_str}\n----\n')
+    xslt_el = lxml.etree.parse(io.StringIO(xsl_str))
     transform_func = lxml.etree.XSLT(xslt_el)
     transformed_xml_el = transform_func(xml_el)
+    return transformed_xml_el
+
+
+def clean_html(html_el):
+    """A transform to clean up HTML. This removes:
+
+    - Link (a) tags
+    - All attributes (including "class")
+    """
+    # language=xsl
+    xsl_str = """\
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+      <xsl:template match="@*|node()">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </xsl:template>
+      <xsl:template match="@*|a"/>
+    </xsl:stylesheet>
+    """
+    xslt_el = lxml.etree.parse(io.StringIO(xsl_str))
+    transform_func = lxml.etree.XSLT(xslt_el)
+    transformed_xml_el = transform_func(html_el)
     return transformed_xml_el
