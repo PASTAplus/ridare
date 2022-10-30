@@ -152,8 +152,10 @@ def fix_literal_layout(xml_el):
 def clean_html(html_el):
     """A transform to clean up HTML. This removes:
 
-    - Link (a) tags
     - All attributes (including "class")
+
+    To remove other elements, add them in the final template match. E.g., to remove "a"
+    anchors: <xsl:template match="@*|a"/>
     """
     # language=xsl
     xsl_str = """\
@@ -163,7 +165,7 @@ def clean_html(html_el):
           <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
       </xsl:template>
-      <xsl:template match="@*|a"/>
+      <xsl:template match="@*"/>
     </xsl:stylesheet>
     """
     xslt_el = lxml.etree.parse(io.StringIO(xsl_str))
