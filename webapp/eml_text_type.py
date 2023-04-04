@@ -165,7 +165,7 @@ def clean_html(html_el):
           <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
       </xsl:template>
-      <xsl:template match="@*"/>
+      <xsl:template match="@*[local-name() != 'href']"/>
     </xsl:stylesheet>
     """
     xslt_el = lxml.etree.parse(io.StringIO(xsl_str))
