@@ -3,17 +3,17 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.10
-  - pip
-  - requests
-  - daiquiri
   - libiconv
-  - flask
-  - jinja2
-  - markdown
-  - grip
-  - pytest
-  - filelock
-  - lxml
   - gunicorn
+  - flask
+  - markdown
+  - python=3.11
+  - requests
+  - pip
+  - grip
+  - jinja2
+  - lxml
+  - filelock
+  - pytest
+  - daiquiri
 prefix: /home/servilla/anaconda3/envs/ridare
