@@ -75,8 +75,8 @@ def multi():
     data = request.get_json(force=True)
     pids = data.get("pid")
     queries = data.get("query")
-    if not isinstance(pids, list) or not isinstance(queries, dict):
-        return jsonify({"error": "Invalid request format"}), 400
+    if not isinstance(pids, list) or not isinstance(queries, list):
+        return jsonify({"error": "Invalid request format: 'query' must be a list of XPath strings."}), 400
 
     results = {}
     for pid in pids:
@@ -90,36 +90,29 @@ def multi():
         except Exception as e:
             results[pid] = {"error": f"XML parse error: {str(e)}"}
             continue
-        pid_results = {}
-        for key, xpath in queries.items():
+        pid_results = []
+        for xpath in queries:
             try:
                 values = tree.xpath(xpath)
-                # Store lxml elements and primitives as-is
-                pid_results[key] = values
+                for v in values:
+                    pid_results.append(v)
             except Exception as e:
-                pid_results[key] = f"XPath error: {str(e)}"
+                pid_results.append(f"XPath error: {str(e)}")
         results[pid] = pid_results
 
     results_el = etree.Element("results")
     for pid, pid_results in results.items():
         package_el = etree.SubElement(results_el, "package", id=pid)
-        if isinstance(pid_results, dict):
-            for key, value in pid_results.items():
-                if key == "error":
+        if isinstance(pid_results, list):
+            for v in pid_results:
+                if isinstance(v, lxml.etree._Element):
+                    package_el.append(v)
+                elif isinstance(v, str) and v.startswith("XPath error"):
                     error_el = etree.SubElement(package_el, "error")
-                    error_el.text = value
-                elif isinstance(value, list):
-                    parent_el = etree.SubElement(package_el, key)
-                    child_tag = key[:-1] if key.endswith('s') else 'item'
-                    for v in value:
-                        if isinstance(v, lxml.etree._Element):
-                            parent_el.append(v)
-                        else:
-                            child_el = etree.SubElement(parent_el, child_tag)
-                            child_el.text = str(v)
+                    error_el.text = v
                 else:
-                    key_el = etree.SubElement(package_el, key)
-                    key_el.text = str(value)
+                    value_el = etree.SubElement(package_el, "value")
+                    value_el.text = str(v)
         else:
             error_el = etree.SubElement(package_el, "error")
             error_el.text = str(pid_results)
