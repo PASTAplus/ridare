@@ -79,7 +79,8 @@ def multi():
 
     results = {}
     for pid in pids:
-        xml_path = os.path.join(cwd, "../cache/production", f"{pid}.eml.xml")
+        pid_filename = pid.replace('.', '_')
+        xml_path = os.path.join(cwd, "../cache/production", f"{pid_filename}.eml.xml")
         if not os.path.exists(xml_path):
             results[pid] = {"error": f"File not found: {xml_path}"}
             continue
