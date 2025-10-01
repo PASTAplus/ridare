@@ -104,23 +104,25 @@ def multi():
                 pid_results.append(f"XPath error: {str(e)}")
         results[pid] = pid_results
 
-    results_el = etree.Element("results")
+    resultset_el = etree.Element("resultset")
     for pid, pid_results in results.items():
-        package_el = etree.SubElement(results_el, "package", id=pid)
+        document_el = etree.SubElement(resultset_el, "document")
+        packageid_el = etree.SubElement(document_el, "packageid")
+        packageid_el.text = pid
         if isinstance(pid_results, list):
             for v in pid_results:
                 if isinstance(v, lxml.etree._Element):
-                    package_el.append(v)
+                    document_el.append(v)
                 elif isinstance(v, str) and v.startswith("XPath error"):
-                    error_el = etree.SubElement(package_el, "error")
+                    error_el = etree.SubElement(document_el, "error")
                     error_el.text = v
                 else:
-                    value_el = etree.SubElement(package_el, "value")
+                    value_el = etree.SubElement(document_el, "value")
                     value_el.text = str(v)
         else:
-            error_el = etree.SubElement(package_el, "error")
+            error_el = etree.SubElement(document_el, "error")
             error_el.text = str(pid_results)
-    xml_str = etree.tostring(results_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
+    xml_str = etree.tostring(resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
     response = flask.make_response(xml_str)
     response.headers["Content-Type"] = "application/xml; charset=utf-8"
     return response
