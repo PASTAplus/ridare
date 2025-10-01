@@ -94,7 +94,8 @@ def multi():
         for key, xpath in queries.items():
             try:
                 values = tree.xpath(xpath)
-                pid_results[key] = [str(v) if not isinstance(v, str) else v for v in values]
+                # Store lxml elements and primitives as-is
+                pid_results[key] = values
             except Exception as e:
                 pid_results[key] = f"XPath error: {str(e)}"
         results[pid] = pid_results
@@ -108,9 +109,14 @@ def multi():
                     error_el = etree.SubElement(package_el, "error")
                     error_el.text = value
                 elif isinstance(value, list):
-                    key_el = etree.SubElement(package_el, key)
-                    # Join multiple values with semicolon, or create multiple elements if preferred
-                    key_el.text = "; ".join(value)
+                    parent_el = etree.SubElement(package_el, key)
+                    child_tag = key[:-1] if key.endswith('s') else 'item'
+                    for v in value:
+                        if isinstance(v, lxml.etree._Element):
+                            parent_el.append(v)
+                        else:
+                            child_el = etree.SubElement(parent_el, child_tag)
+                            child_el.text = str(v)
                 else:
                     key_el = etree.SubElement(package_el, key)
                     key_el.text = str(value)
