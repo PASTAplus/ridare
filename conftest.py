@@ -148,3 +148,9 @@ def docbook_and_markdown() -> str:
 def markdown_table_md() -> str:
     """A simple markdown table."""
     return (TEST_DOCS / 'markdown_table.md').read_text()
+
+
+# FIXME: Temporarily added to get test suite running. Resolve w/rogerdahl later.
+@pytest.fixture
+def config():
+    return {}

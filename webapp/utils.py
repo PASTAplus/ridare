@@ -58,9 +58,10 @@ def download_eml_to_cache(pid, pasta_url, cache) -> bytes:
     eml_url = f"{pasta_url}/metadata/eml/{scope}/{identifier}/{revision}"
     eml_bytes = requests_wrapper(eml_url)
     from webapp.markdown_cache import safe_filename
-    eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+    eml_path = pathlib.Path(cache, f"{safe_filename(pid)}.eml.xml")
+    eml_path.parent.mkdir(parents=True, exist_ok=True)
     eml_path.write_bytes(eml_bytes)
-    return eml_bytes
+    return str(eml_path)
 
 
 def get_eml(pid: str, env: str) -> bytes:

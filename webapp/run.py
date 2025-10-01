@@ -75,7 +75,7 @@ def multi():
     import os
     from flask import request, jsonify
     from lxml import etree
-    from utils import get_eml
+    from webapp.utils import get_eml
 
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
 
