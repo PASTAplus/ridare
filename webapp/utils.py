@@ -50,8 +50,9 @@ def first(el: lxml.etree.Element, xpath: str) -> str:
     return el
 
 
-def download_eml_to_cache(pid, pasta_url, cache):
-    """Download the raw EML XML for the given pid from pasta_url and write to cache_dir."""
+def download_eml_to_cache(pid, pasta_url, cache) -> bytes:
+    """Download the raw EML XML for the given pid from pasta_url and write to cache_dir.
+    Returns the EML XML bytes."""
     import pathlib
     scope, identifier, revision = pid.strip().split(".")
     eml_url = f"{pasta_url}/metadata/eml/{scope}/{identifier}/{revision}"
@@ -59,4 +60,35 @@ def download_eml_to_cache(pid, pasta_url, cache):
     from webapp.markdown_cache import safe_filename
     eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
     eml_path.write_bytes(eml_bytes)
-    return str(eml_path)
+    return eml_bytes
+
+
+def get_eml(pid: str, env: str) -> bytes:
+    """
+    Retrieve the raw EML XML for a given pid and environment.
+    Checks cache first, fetches and caches if missing, then returns the XML bytes.
+    """
+    import pathlib
+    import webapp
+    # Determine pasta and cache from env
+    if env.lower() in ("d", "dev", "development"):
+        pasta = webapp.config.Config.PASTA_D
+        cache = webapp.config.Config.CACHE_D
+    elif env.lower() in ("s", "stage", "staging"):
+        pasta = webapp.config.Config.PASTA_S
+        cache = webapp.config.Config.CACHE_S
+    elif env.lower() in ("p", "prod", "production"):
+        pasta = webapp.config.Config.PASTA_P
+        cache = webapp.config.Config.CACHE_P
+    else:
+        msg = f"Requested PASTA environment not supported: {env}"
+        raise webapp.exceptions.PastaEnvironmentError(msg)
+
+    # Check cache first
+    from webapp.markdown_cache import safe_filename
+    eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+    if eml_path.is_file():
+        return eml_path.read_bytes()
+    # If not cached, fetch and cache
+    eml_bytes = download_eml_to_cache(pid, pasta, cache)
+    return eml_bytes

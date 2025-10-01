@@ -75,23 +75,9 @@ def multi():
     import os
     from flask import request, jsonify
     from lxml import etree
+    from utils import get_eml
 
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
-    if env.lower() in ("d", "dev", "development"):
-        pasta = webapp.config.Config.PASTA_D
-        cache = webapp.config.Config.CACHE_D
-        env = webapp.config.Config.ENV_D
-    elif env.lower() in ("s", "stage", "staging"):
-        pasta = webapp.config.Config.PASTA_S
-        cache = webapp.config.Config.CACHE_S
-        env = webapp.config.Config.ENV_S
-    elif env.lower() in ("p", "prod", "production"):
-        pasta = webapp.config.Config.PASTA_P
-        cache = webapp.config.Config.CACHE_P
-        env = webapp.config.Config.ENV_P
-    else:
-        msg = f"Requested PASTA environment not supported: {env}"
-        raise webapp.exceptions.PastaEnvironmentError(msg)
 
     data = request.get_json(force=True)
     pids = data.get("pid")
@@ -101,18 +87,10 @@ def multi():
 
     results = {}
     for pid in pids:
-        pid_filename = pid.replace('.', '_')
-        eml_path = os.path.join(cwd, "../cache/production", f"{pid_filename}.eml.xml")
-        if not os.path.exists(eml_path):
-            try:
-                from webapp.utils import download_eml_to_cache
-                eml_path = download_eml_to_cache(pid, pasta, cache)
-            except Exception as e:
-                results[pid] = {"error": f"Could not fetch or cache EML: {str(e)}"}
-                continue
-
+        eml_bytes = get_eml(pid, env)
         try:
-            tree = lxml.etree.parse(eml_path)
+            root = lxml.etree.fromstring(eml_bytes)
+            tree = lxml.etree.ElementTree(root)
         except Exception as e:
             results[pid] = {"error": f"XML parse error: {str(e)}"}
             continue
