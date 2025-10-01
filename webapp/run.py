@@ -66,8 +66,40 @@ def markdown(pid_xpath):
 
 @app.route("/multi", methods=["POST"])
 def multi():
-    """Placeholder endpoint for /multi. Will be built out iteratively."""
-    return flask.jsonify({"message": "Multi endpoint placeholder"})
+    """Process multiple EML documents and run user-specified XPath queries."""
+    import lxml.etree
+    import os
+    from flask import request, jsonify
+
+    data = request.get_json(force=True)
+    pids = data.get("pid")
+    queries = data.get("query")
+    if not isinstance(pids, list) or not isinstance(queries, dict):
+        return jsonify({"error": "Invalid request format"}), 400
+
+    results = {}
+    for pid in pids:
+        xml_path = os.path.join(cwd, "../cache/production", f"{pid}.eml.xml")
+        if not os.path.exists(xml_path):
+            results[pid] = {"error": f"File not found: {xml_path}"}
+            continue
+        try:
+            tree = lxml.etree.parse(xml_path)
+        except Exception as e:
+            results[pid] = {"error": f"XML parse error: {str(e)}"}
+            continue
+        pid_results = {}
+        for key, xpath in queries.items():
+            try:
+                # Use XPath with namespaces for EML
+                ns = {"eml": "eml://ecoinformatics.org/eml-2.1.1"}
+                values = tree.xpath(xpath, namespaces=ns)
+                # Convert lxml results to strings
+                pid_results[key] = [str(v) if not isinstance(v, str) else v for v in values]
+            except Exception as e:
+                pid_results[key] = f"XPath error: {str(e)}"
+        results[pid] = pid_results
+    return jsonify(results)
 
 
 if __name__ == "__main__":
