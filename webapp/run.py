@@ -113,15 +113,9 @@ def multi():
             for v in pid_results:
                 if isinstance(v, lxml.etree._Element):
                     document_el.append(v)
-                elif isinstance(v, str) and v.startswith("XPath error"):
-                    error_el = etree.SubElement(document_el, "error")
-                    error_el.text = v
-                else:
+                elif not (isinstance(v, str) and v.startswith("XPath error")):
                     value_el = etree.SubElement(document_el, "value")
                     value_el.text = str(v)
-        else:
-            error_el = etree.SubElement(document_el, "error")
-            error_el.text = str(pid_results)
     xml_str = etree.tostring(resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
     response = flask.make_response(xml_str)
     response.headers["Content-Type"] = "application/xml; charset=utf-8"
