@@ -70,6 +70,7 @@ def multi():
     import lxml.etree
     import os
     from flask import request, jsonify
+    from lxml import etree
 
     data = request.get_json(force=True)
     pids = data.get("pid")
@@ -97,7 +98,29 @@ def multi():
             except Exception as e:
                 pid_results[key] = f"XPath error: {str(e)}"
         results[pid] = pid_results
-    return jsonify(results)
+
+    results_el = etree.Element("results")
+    for pid, pid_results in results.items():
+        package_el = etree.SubElement(results_el, "package", id=pid)
+        if isinstance(pid_results, dict):
+            for key, value in pid_results.items():
+                if key == "error":
+                    error_el = etree.SubElement(package_el, "error")
+                    error_el.text = value
+                elif isinstance(value, list):
+                    key_el = etree.SubElement(package_el, key)
+                    # Join multiple values with semicolon, or create multiple elements if preferred
+                    key_el.text = "; ".join(value)
+                else:
+                    key_el = etree.SubElement(package_el, key)
+                    key_el.text = str(value)
+        else:
+            error_el = etree.SubElement(package_el, "error")
+            error_el.text = str(pid_results)
+    xml_str = etree.tostring(results_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
+    response = flask.make_response(xml_str)
+    response.headers["Content-Type"] = "application/xml; charset=utf-8"
+    return response
 
 
 if __name__ == "__main__":
