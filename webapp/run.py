@@ -2,12 +2,16 @@
 
 import logging
 import os
+import pathlib
 
 import daiquiri
 import flask
 
 import webapp.markdown_cache
 import webapp.config
+import webapp.utils
+import webapp.exceptions
+from webapp.markdown_cache import safe_filename
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 logfile = cwd + "/run.log"
@@ -72,6 +76,23 @@ def multi():
     from flask import request, jsonify
     from lxml import etree
 
+    env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
+    if env.lower() in ("d", "dev", "development"):
+        pasta = webapp.config.Config.PASTA_D
+        cache = webapp.config.Config.CACHE_D
+        env = webapp.config.Config.ENV_D
+    elif env.lower() in ("s", "stage", "staging"):
+        pasta = webapp.config.Config.PASTA_S
+        cache = webapp.config.Config.CACHE_S
+        env = webapp.config.Config.ENV_S
+    elif env.lower() in ("p", "prod", "production"):
+        pasta = webapp.config.Config.PASTA_P
+        cache = webapp.config.Config.CACHE_P
+        env = webapp.config.Config.ENV_P
+    else:
+        msg = f"Requested PASTA environment not supported: {env}"
+        raise webapp.exceptions.PastaEnvironmentError(msg)
+
     data = request.get_json(force=True)
     pids = data.get("pid")
     queries = data.get("query")
@@ -81,12 +102,25 @@ def multi():
     results = {}
     for pid in pids:
         pid_filename = pid.replace('.', '_')
-        xml_path = os.path.join(cwd, "../cache/production", f"{pid_filename}.eml.xml")
-        if not os.path.exists(xml_path):
-            results[pid] = {"error": f"File not found: {xml_path}"}
-            continue
+        eml_path = os.path.join(cwd, "../cache/production", f"{pid_filename}.eml.xml")
+        if not os.path.exists(eml_path):
+            scope, identifier, revision = pid.strip().split(".")
+            eml_url = f"{pasta}/metadata/eml/{scope}/{identifier}/{revision}"
+            try:
+                eml_bytes = webapp.utils.requests_wrapper(eml_url)
+            except ValueError as e:
+                logger.error(e)
+                raise
+            except Exception as e:
+                logger.error(e)
+                msg = f'Error accessing data package "{pid}" in the "' f'{env}" environment'
+                raise webapp.exceptions.DataPackageError(msg)
+
+            eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+            eml_path.write_bytes(eml_bytes)
+
         try:
-            tree = lxml.etree.parse(xml_path)
+            tree = lxml.etree.parse(eml_path)
         except Exception as e:
             results[pid] = {"error": f"XML parse error: {str(e)}"}
             continue
