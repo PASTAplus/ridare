@@ -48,3 +48,15 @@ def first(el: lxml.etree.Element, xpath: str) -> str:
         el = None
     # log.debug(f'first() -> {el}')
     return el
+
+
+def download_eml_to_cache(pid, pasta_url, cache):
+    """Download the raw EML XML for the given pid from pasta_url and write to cache_dir."""
+    import pathlib
+    scope, identifier, revision = pid.strip().split(".")
+    eml_url = f"{pasta_url}/metadata/eml/{scope}/{identifier}/{revision}"
+    eml_bytes = requests_wrapper(eml_url)
+    from webapp.markdown_cache import safe_filename
+    eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+    eml_path.write_bytes(eml_bytes)
+    return str(eml_path)

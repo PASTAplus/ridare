@@ -104,20 +104,12 @@ def multi():
         pid_filename = pid.replace('.', '_')
         eml_path = os.path.join(cwd, "../cache/production", f"{pid_filename}.eml.xml")
         if not os.path.exists(eml_path):
-            scope, identifier, revision = pid.strip().split(".")
-            eml_url = f"{pasta}/metadata/eml/{scope}/{identifier}/{revision}"
             try:
-                eml_bytes = webapp.utils.requests_wrapper(eml_url)
-            except ValueError as e:
-                logger.error(e)
-                raise
+                from webapp.utils import download_eml_to_cache
+                eml_path = download_eml_to_cache(pid, pasta, cache)
             except Exception as e:
-                logger.error(e)
-                msg = f'Error accessing data package "{pid}" in the "' f'{env}" environment'
-                raise webapp.exceptions.DataPackageError(msg)
-
-            eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
-            eml_path.write_bytes(eml_bytes)
+                results[pid] = {"error": f"Could not fetch or cache EML: {str(e)}"}
+                continue
 
         try:
             tree = lxml.etree.parse(eml_path)
