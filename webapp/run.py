@@ -64,6 +64,11 @@ def markdown(pid_xpath):
         )
         flask.abort(400, description=e)
 
+@app.route("/multi", methods=["POST"])
+def multi():
+    """Placeholder endpoint for /multi. Will be built out iteratively."""
+    return flask.jsonify({"message": "Multi endpoint placeholder"})
+
 
 if __name__ == "__main__":
     app.run()
