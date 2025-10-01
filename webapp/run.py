@@ -92,10 +92,7 @@ def multi():
         pid_results = {}
         for key, xpath in queries.items():
             try:
-                # Use XPath with namespaces for EML
-                ns = {"eml": "eml://ecoinformatics.org/eml-2.1.1"}
-                values = tree.xpath(xpath, namespaces=ns)
-                # Convert lxml results to strings
+                values = tree.xpath(xpath)
                 pid_results[key] = [str(v) if not isinstance(v, str) else v for v in values]
             except Exception as e:
                 pid_results[key] = f"XPath error: {str(e)}"
