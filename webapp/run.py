@@ -87,12 +87,12 @@ def multi():
 
     results = {}
     for pid in pids:
-        eml_bytes = get_eml(pid, env)
         try:
+            eml_bytes = get_eml(pid, env)
             root = lxml.etree.fromstring(eml_bytes)
             tree = lxml.etree.ElementTree(root)
-        except Exception as e:
-            results[pid] = {"error": f"XML parse error: {str(e)}"}
+        except Exception:
+            # If pid is missing/invalid, skip adding it to results
             continue
         pid_results = []
         for xpath in queries:
@@ -100,8 +100,8 @@ def multi():
                 values = tree.xpath(xpath)
                 for v in values:
                     pid_results.append(v)
-            except Exception as e:
-                pid_results.append(f"XPath error: {str(e)}")
+            except Exception:
+                pass
         results[pid] = pid_results
 
     resultset_el = etree.Element("resultset")
@@ -113,7 +113,7 @@ def multi():
             for v in pid_results:
                 if isinstance(v, lxml.etree._Element):
                     document_el.append(v)
-                elif not (isinstance(v, str) and v.startswith("XPath error")):
+                else:
                     value_el = etree.SubElement(document_el, "value")
                     value_el.text = str(v)
     xml_str = etree.tostring(resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True)

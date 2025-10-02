@@ -47,3 +47,30 @@ def test_multi_multiple_pids_valid():
         title = document.find("title")
         assert title is not None
         assert title.text is not None and len(title.text) > 0
+
+def test_multi_some_missing_or_invalid_pids():
+    """
+    Test /multi endpoint with multiple pids: one valid, one missing, and one with invalid format.
+    Verifies that only the valid pid returns a <document> with a non-empty <title>.
+    Documents for missing/invalid pids should not be present in the resultset.
+    """
+    client = app.test_client()
+    payload = {
+        "pid": ["edi.521.1", "notarealpid.123.456", "badformatpid"],
+        "query": ["dataset/title"]
+    }
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 200
+    assert response.headers["Content-Type"].startswith("application/xml")
+    root = lxml.etree.fromstring(response.data)
+    assert root.tag == "resultset"
+    documents = root.findall("document")
+    # Only the valid pid should be present
+    assert len(documents) == 1
+    document = documents[0]
+    packageid = document.find("packageid")
+    assert packageid is not None
+    assert packageid.text == "edi.521.1"
+    title = document.find("title")
+    assert title is not None
+    assert title.text is not None and len(title.text) > 0
