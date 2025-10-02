@@ -1,4 +1,3 @@
-
 from webapp.run import app
 import lxml.etree
 
@@ -22,3 +21,29 @@ def test_multi_basic():
     assert packageid is not None
     title = document.find("title")
     assert title is not None
+
+def test_multi_multiple_pids_valid():
+    """
+    Test /multi endpoint with multiple valid pids and a single XPath query.
+    Verifies that the response contains two <document> elements, each with the correct <packageid>
+    and a non-empty <title> element, confirming that valid results are returned for each pid.
+    """
+    client = app.test_client()
+    payload = {
+        "pid": ["edi.521.1", "knb-lter-sbc.1001.7"],
+        "query": ["dataset/title"]
+    }
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 200
+    assert response.headers["Content-Type"].startswith("application/xml")
+    root = lxml.etree.fromstring(response.data)
+    assert root.tag == "resultset"
+    documents = root.findall("document")
+    assert len(documents) == 2
+    for document, pid in zip(documents, payload["pid"]):
+        packageid = document.find("packageid")
+        assert packageid is not None
+        assert packageid.text == pid
+        title = document.find("title")
+        assert title is not None
+        assert title.text is not None and len(title.text) > 0
