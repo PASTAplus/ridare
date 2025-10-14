@@ -74,3 +74,40 @@ def test_multi_some_missing_or_invalid_pids():
     title = document.find("title")
     assert title is not None
     assert title.text is not None and len(title.text) > 0
+
+def test_multi_multiple_queries_varied_results():
+    """
+    Test /multi endpoint with multiple queries: valid, invalid, and empty-result XPath expressions.
+    Verifies that:
+    - Valid XPath returns expected elements.
+    - Invalid XPath does not break the response and does not add elements.
+    - XPath with no matches is handled gracefully.
+    """
+    client = app.test_client()
+    payload = {
+        "pid": ["edi.521.1"],
+        "query": [
+            "dataset/title",           # valid XPath
+            "not/a/real/xpath",       # invalid XPath
+            "dataset/language"    # valid XPath, but no matches
+        ]
+    }
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 200
+    assert response.headers["Content-Type"].startswith("application/xml")
+    root = lxml.etree.fromstring(response.data)
+    assert root.tag == "resultset"
+    documents = root.findall("document")
+    assert len(documents) == 1
+    for document, pid in zip(documents, payload["pid"]):
+        packageid = document.find("packageid")
+        assert packageid is not None
+        assert packageid.text == pid
+        # Check valid XPath result
+        title = document.find("title")
+        assert title is not None
+        assert title.text is not None and len(title.text) > 0
+        # Check that invalid XPath does not add elements named 'not/a/real/xpath'
+        assert document.find("not/a/real/xpath") is None
+        # Check that empty-result XPath does not add elements named 'language'
+        assert document.find("language") is None
