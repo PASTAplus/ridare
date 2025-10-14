@@ -111,3 +111,43 @@ def test_multi_multiple_queries_varied_results():
         assert document.find("not/a/real/xpath") is None
         # Check that empty-result XPath does not add elements named 'language'
         assert document.find("language") is None
+
+def test_multi_missing_pid_field():
+    client = app.test_client()
+    payload = {"query": ["dataset/title"]}
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 400
+    assert b"Invalid request format" in response.data
+
+def test_multi_missing_query_field():
+    client = app.test_client()
+    payload = {"pid": ["edi.521.1"]}
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 400
+    assert b"Invalid request format" in response.data
+
+def test_multi_pid_not_list():
+    client = app.test_client()
+    payload = {"pid": "edi.521.1", "query": ["dataset/title"]}
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 400
+    assert b"Invalid request format" in response.data
+
+def test_multi_query_not_list():
+    client = app.test_client()
+    payload = {"pid": ["edi.521.1"], "query": "dataset/title"}
+    response = client.post("/multi", json=payload)
+    assert response.status_code == 400
+    assert b"Invalid request format" in response.data
+
+def test_multi_empty_post_body():
+    client = app.test_client()
+    response = client.post("/multi", json={})
+    assert response.status_code == 400
+    assert b"Invalid request format" in response.data
+
+def test_multi_non_json_post_body():
+    client = app.test_client()
+    response = client.post("/multi", data="not a json", content_type="text/plain")
+    assert response.status_code == 400
+    assert b"Invalid request format" in response.data

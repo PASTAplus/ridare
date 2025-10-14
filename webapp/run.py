@@ -79,7 +79,10 @@ def multi():
 
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
 
-    data = request.get_json(force=True)
+    try:
+        data = request.get_json(force=True)
+    except Exception:
+        return jsonify({"error": "Invalid request format: POST body must be valid JSON."}), 400
     pids = data.get("pid")
     queries = data.get("query")
     if not isinstance(pids, list) or not isinstance(queries, list):
