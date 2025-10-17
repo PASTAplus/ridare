@@ -2,7 +2,7 @@ import pytest
 import tempfile
 import pathlib
 from unittest.mock import patch, MagicMock
-from webapp.utils import download_eml_to_cache
+from webapp.utils import download_eml_to_cache, get_eml
 
 class DummyResponse:
     def __init__(self, content, ok=True, reason=None):
@@ -40,3 +40,31 @@ def test_download_eml_to_cache_http_error(mock_get, temp_cache):
     with pytest.raises(Exception):
         download_eml_to_cache(pid, pasta_url, cache)
 
+
+@patch("webapp.config.Config.PASTA_D", "https://fake-pasta-url.org")
+@patch("webapp.config.Config.CACHE_D", None)
+@patch("webapp.markdown_cache.safe_filename", lambda pid: f"safe_{pid}")
+def test_get_eml_cache_hit(temp_cache):
+    pid = "edi.521.1"
+    env = "dev"
+    cache_dir = temp_cache
+    eml_path = pathlib.Path(cache_dir, f"safe_{pid}.eml.xml")
+    eml_content = b"<eml>cached</eml>"
+    eml_path.write_bytes(eml_content)
+    with patch("webapp.config.Config.CACHE_D", str(cache_dir)):
+        result = get_eml(pid, env)
+        assert result == eml_content
+
+@patch("webapp.config.Config.PASTA_D", "https://fake-pasta-url.org")
+@patch("webapp.config.Config.CACHE_D", None)
+@patch("webapp.markdown_cache.safe_filename", lambda pid: f"safe_{pid}")
+@patch("webapp.utils.download_eml_to_cache")
+def test_get_eml_cache_miss(mock_download, temp_cache):
+    pid = "edi.521.1"
+    env = "dev"
+    cache_dir = temp_cache
+    with patch("webapp.config.Config.CACHE_D", str(cache_dir)):
+        mock_download.return_value = b"<eml>test</eml>"
+        result = get_eml(pid, env)
+        assert result == b"<eml>test</eml>"
+        mock_download.assert_called_once()
