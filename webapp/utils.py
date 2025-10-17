@@ -50,9 +50,9 @@ def first(el: lxml.etree.Element, xpath: str) -> str:
     return el
 
 
-def download_eml_to_cache(pid, pasta_url, cache) -> bytes:
+def download_eml_to_cache(pid, pasta_url, cache) -> str:
     """Download the raw EML XML for the given pid from pasta_url and write to cache_dir.
-    Returns the EML XML bytes."""
+    Returns the path to the cached EML XML file as a string."""
     import pathlib
     scope, identifier, revision = pid.strip().split(".")
     eml_url = f"{pasta_url}/metadata/eml/{scope}/{identifier}/{revision}"
