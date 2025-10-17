@@ -2,16 +2,17 @@
 
 import logging
 import os
-import pathlib
 
 import daiquiri
 import flask
+import lxml.etree
+from flask import request, jsonify
+from lxml import etree
 
 import webapp.markdown_cache
 import webapp.config
 import webapp.utils
 import webapp.exceptions
-from webapp.markdown_cache import safe_filename
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 logfile = cwd + "/run.log"
@@ -70,7 +71,6 @@ def markdown(pid_xpath):
 
 def build_multi_results(pids, queries, env):
     """Run XPath queries on multiple EML documents and return results as a dict."""
-    import lxml.etree
     from webapp.utils import get_eml
     results = {}
     for pid in pids:
@@ -93,9 +93,6 @@ def build_multi_results(pids, queries, env):
 @app.route("/multi", methods=["POST"])
 def multi():
     """Process multiple EML documents and run user-specified XPath queries."""
-    import lxml.etree
-    from flask import request, jsonify
-    from lxml import etree
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
     try:
         data = request.get_json(force=True)
