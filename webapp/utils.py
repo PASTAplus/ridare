@@ -50,24 +50,30 @@ def first(el: lxml.etree.Element, xpath: str) -> str:
     return el
 
 
-def download_eml_to_cache(pid, pasta_url, cache) -> str:
+def get_cache_path(pid: str, cache: str) -> str:
+    """Return the cache file path for a given pid and cache directory."""
+    import pathlib
+    from webapp.markdown_cache import safe_filename
+    return str(pathlib.Path(cache, f"{safe_filename(pid)}.eml.xml"))
+
+
+def download_eml_to_cache(pid: str, pasta_url: str, cache: str) -> str:
     """Download the raw EML XML for the given pid from pasta_url and write to cache_dir.
     Returns the path to the cached EML XML file as a string."""
-    import pathlib
-    scope, identifier, revision = pid.strip().split(".")
-    eml_url = f"{pasta_url}/metadata/eml/{scope}/{identifier}/{revision}"
+    eml_url = f"{pasta_url}/metadata/eml/{'.'.join(pid.strip().split('.'))}"
     eml_bytes = requests_wrapper(eml_url)
-    from webapp.markdown_cache import safe_filename
-    eml_path = pathlib.Path(cache, f"{safe_filename(pid)}.eml.xml")
-    eml_path.parent.mkdir(parents=True, exist_ok=True)
-    eml_path.write_bytes(eml_bytes)
-    return str(eml_path)
+    eml_path = get_cache_path(pid, cache)
+    import pathlib
+    pathlib.Path(eml_path).parent.mkdir(parents=True, exist_ok=True)
+    pathlib.Path(eml_path).write_bytes(eml_bytes)
+    return eml_path
 
 
 def get_eml(pid: str, env: str) -> bytes:
     """
     Retrieve the raw EML XML for a given pid and environment.
     Checks cache first, fetches and caches if missing, then returns the XML bytes.
+    Handles both real and mocked download_eml_to_cache.
     """
     import pathlib
     import webapp
@@ -91,5 +97,7 @@ def get_eml(pid: str, env: str) -> bytes:
     if eml_path.is_file():
         return eml_path.read_bytes()
     # If not cached, fetch and cache
-    eml_bytes = download_eml_to_cache(pid, pasta, cache)
-    return eml_bytes
+    result = download_eml_to_cache(pid, pasta, cache)
+    if isinstance(result, bytes):
+        return result
+    return pathlib.Path(result).read_bytes()

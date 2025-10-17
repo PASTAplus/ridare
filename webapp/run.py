@@ -68,17 +68,35 @@ def markdown(pid_xpath):
         )
         flask.abort(400, description=e)
 
+def build_multi_results(pids, queries, env):
+    """Run XPath queries on multiple EML documents and return results as a dict."""
+    import lxml.etree
+    from webapp.utils import get_eml
+    results = {}
+    for pid in pids:
+        try:
+            eml_bytes = get_eml(pid, env)
+            root = lxml.etree.fromstring(eml_bytes)
+            tree = lxml.etree.ElementTree(root)
+        except Exception:
+            continue
+        pid_results = []
+        for xpath in queries:
+            try:
+                values = tree.xpath(xpath)
+                pid_results.extend(values)
+            except Exception:
+                continue
+        results[pid] = pid_results
+    return results
+
 @app.route("/multi", methods=["POST"])
 def multi():
     """Process multiple EML documents and run user-specified XPath queries."""
     import lxml.etree
-    import os
     from flask import request, jsonify
     from lxml import etree
-    from webapp.utils import get_eml
-
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
-
     try:
         data = request.get_json(force=True)
     except Exception:
@@ -87,26 +105,7 @@ def multi():
     queries = data.get("query")
     if not isinstance(pids, list) or not isinstance(queries, list):
         return jsonify({"error": "Invalid request format: 'query' must be a list of XPath strings."}), 400
-
-    results = {}
-    for pid in pids:
-        try:
-            eml_bytes = get_eml(pid, env)
-            root = lxml.etree.fromstring(eml_bytes)
-            tree = lxml.etree.ElementTree(root)
-        except Exception:
-            # If pid is missing/invalid, skip adding it to results
-            continue
-        pid_results = []
-        for xpath in queries:
-            try:
-                values = tree.xpath(xpath)
-                for v in values:
-                    pid_results.append(v)
-            except Exception:
-                pass
-        results[pid] = pid_results
-
+    results = build_multi_results(pids, queries, env)
     resultset_el = etree.Element("resultset")
     for pid, pid_results in results.items():
         document_el = etree.SubElement(resultset_el, "document")
