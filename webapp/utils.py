@@ -66,7 +66,7 @@ def download_eml_to_cache(pid: str, pasta_url: str, cache: str) -> str:
     """Download the raw EML XML for the given pid from pasta_url and write to cache_dir.
     Returns the path to the cached EML XML file as a string."""
     from webapp.markdown_cache import safe_filename
-    eml_url = f"{pasta_url}/metadata/eml/{'.'.join(pid.strip().split('.'))}"
+    eml_url = f"{pasta_url}/metadata/eml/{'/'.join(pid.strip().split('.'))}"
     eml_bytes = requests_wrapper(eml_url)
     eml_path = get_cache_path(pid, cache)
     pathlib.Path(eml_path).parent.mkdir(parents=True, exist_ok=True)
