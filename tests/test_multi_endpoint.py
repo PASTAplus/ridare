@@ -42,6 +42,9 @@ def assert_invalid_request(response):
     assert response.status_code == 400
     assert b"Invalid request format" in response.data
 
+def assert_element_absent(document, tag):
+    assert document.find(tag) is None
+
 def test_multi_basic(client):
     response = post_multi(client, payload=PAYLOAD_BASIC)
     root = parse_xml_response(response)
@@ -119,16 +122,13 @@ def test_multi_mixed_query_semantics(client):
     root = parse_xml_response(response)
     document = root.find("document")
     assert document is not None
-    # Should contain packageid
-    packageid = document.find("packageid")
-    assert packageid is not None
+    assert_document_structure(document)
     # Should contain dataset/title as direct child (simple XPath)
-    title_elements = document.findall("title")
-    assert any(t.text for t in title_elements)
+    assert any(t.text for t in document.findall("title"))
     # Should contain projectTitle wrapper with dataset/project/title inside
     project_title = document.find("projectTitle")
     assert project_title is not None
     assert any(child.tag == "title" and child.text for child in project_title)
-    # Should NOT contain 123badtag or emptyResult
-    assert document.find("123badtag") is None
-    assert document.find("emptyResult") is None
+    # Should NOT contain invalid or empty tags
+    for tag in ["123badtag", "emptyResult"]:
+        assert_element_absent(document, tag)
