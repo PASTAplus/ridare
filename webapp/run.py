@@ -72,21 +72,47 @@ def markdown(pid_xpath):
 def build_multi_results(pids, queries, env):
     """Run XPath queries on multiple EML documents and return results as a dict."""
     from webapp.utils import get_eml
+    import re
+    def is_valid_xml_tag(tag):
+        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens, underscores, or periods
+        return re.match(r'^[A-Za-z_][\w\-\.]*$', tag) is not None
     results = {}
     for pid in pids:
         try:
             eml_bytes = get_eml(pid, env)
             root = lxml.etree.fromstring(eml_bytes)
-            tree = lxml.etree.ElementTree(root)
+            # tree = lxml.etree.ElementTree(root)  # Not needed for XPath
         except Exception:
             continue
         pid_results = []
-        for xpath in queries:
-            try:
-                values = tree.xpath(xpath)
-                pid_results.extend(values)
-            except Exception:
-                continue
+        for item in queries:
+            if isinstance(item, str):
+                # Simple XPath string
+                try:
+                    values = root.xpath(item)
+                    pid_results.extend(values)
+                except Exception:
+                    continue
+            elif isinstance(item, dict) and len(item) == 1:
+                key, xpath = next(iter(item.items()))
+                if not is_valid_xml_tag(key):
+                    continue  # Skip invalid tag names
+                try:
+                    values = root.xpath(xpath)
+                except Exception:
+                    continue
+                if not values:
+                    continue  # Skip if no nodes found
+                wrapper = lxml.etree.Element(key)
+                for v in values:
+                    # If v is an Element, append directly; if not, create a text node
+                    if isinstance(v, lxml.etree._Element):
+                        wrapper.append(v)
+                    else:
+                        value_el = lxml.etree.Element("value")
+                        value_el.text = str(v)
+                        wrapper.append(value_el)
+                pid_results.append(wrapper)
         results[pid] = pid_results
     return results
 
@@ -96,29 +122,31 @@ def multi():
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
     try:
         data = request.get_json(force=True)
-    except Exception:
-        return jsonify({"error": "Invalid request format: POST body must be valid JSON."}), 400
-    pids = data.get("pid")
-    queries = data.get("query")
-    if not isinstance(pids, list) or not isinstance(queries, list):
-        return jsonify({"error": "Invalid request format: 'query' must be a list of XPath strings."}), 400
-    results = build_multi_results(pids, queries, env)
-    resultset_el = etree.Element("resultset")
-    for pid, pid_results in results.items():
-        document_el = etree.SubElement(resultset_el, "document")
-        packageid_el = etree.SubElement(document_el, "packageid")
-        packageid_el.text = pid
-        if isinstance(pid_results, list):
-            for v in pid_results:
-                if isinstance(v, lxml.etree._Element):
-                    document_el.append(v)
-                else:
-                    value_el = etree.SubElement(document_el, "value")
-                    value_el.text = str(v)
-    xml_str = etree.tostring(resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
-    response = flask.make_response(xml_str)
-    response.headers["Content-Type"] = "application/xml; charset=utf-8"
-    return response
+        pids = data.get("pid")
+        queries = data.get("query")
+        if not isinstance(pids, list) or not isinstance(queries, list):
+            return jsonify({"error": "Invalid request format: 'query' must be a list of XPath strings or key-value pairs."}), 400
+        results = build_multi_results(pids, queries, env)
+        resultset_el = etree.Element("resultset")
+        for pid, pid_results in results.items():
+            document_el = etree.SubElement(resultset_el, "document")
+            packageid_el = etree.SubElement(document_el, "packageid")
+            packageid_el.text = pid
+            if isinstance(pid_results, list):
+                for v in pid_results:
+                    if isinstance(v, lxml.etree._Element):
+                        document_el.append(v)
+                    else:
+                        value_el = etree.SubElement(document_el, "value")
+                        value_el.text = str(v)
+        xml_str = etree.tostring(resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
+        response = flask.make_response(xml_str)
+        response.headers["Content-Type"] = "application/xml; charset=utf-8"
+        return response
+    except Exception as e:
+        # Log the error and return a 400 response with details
+        logger.exception(f"Exception in /multi endpoint: {str(e)}")
+        return jsonify({"error": f"Failed to process query: {str(e)}"}), 400
 
 
 if __name__ == "__main__":
