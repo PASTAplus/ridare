@@ -104,3 +104,31 @@ def test_multi_empty_post_body(client):
 def test_multi_non_json_post_body(client):
     response = post_multi(client, data="not a json", content_type="text/plain")
     assert_invalid_request(response)
+
+def test_multi_mixed_query_semantics(client):
+    payload = {
+        "pid": ["edi.521.1"],
+        "query": [
+            "dataset/title",  # Simple XPath
+            {"projectTitle": "dataset/project/title"},  # Valid labeled query
+            {"123badtag": "dataset/title"},  # Invalid XML tag name
+            {"emptyResult": "not/a/real/xpath"},  # XPath returns no nodes
+        ]
+    }
+    response = post_multi(client, payload=payload)
+    root = parse_xml_response(response)
+    document = root.find("document")
+    assert document is not None
+    # Should contain packageid
+    packageid = document.find("packageid")
+    assert packageid is not None
+    # Should contain dataset/title as direct child (simple XPath)
+    title_elements = document.findall("title")
+    assert any(t.text for t in title_elements)
+    # Should contain projectTitle wrapper with dataset/project/title inside
+    project_title = document.find("projectTitle")
+    assert project_title is not None
+    assert any(child.tag == "title" and child.text for child in project_title)
+    # Should NOT contain 123badtag or emptyResult
+    assert document.find("123badtag") is None
+    assert document.find("emptyResult") is None
