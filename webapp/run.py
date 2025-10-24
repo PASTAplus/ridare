@@ -116,6 +116,14 @@ def build_multi_results(pids, queries, env):
         results[pid] = pid_results
     return results
 
+
+from flask import Flask
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)  # This will allow all origins by default
+
+
 @app.route("/multi", methods=["POST"])
 def multi():
     """Process multiple EML documents and run user-specified XPath queries."""
