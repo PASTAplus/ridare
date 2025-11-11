@@ -13,6 +13,7 @@ import webapp.markdown_cache
 import webapp.config
 import webapp.utils
 import webapp.exceptions
+from flask_cors import CORS
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 logfile = cwd + "/run.log"
@@ -20,6 +21,7 @@ daiquiri.setup(level=logging.INFO, outputs=(daiquiri.output.File(logfile), "stde
 logger = daiquiri.getLogger("run.py: " + __name__)
 
 app = flask.Flask(__name__)
+CORS(app)  # This will allow all origins by default
 app.config.from_object(webapp.config.Config)
 
 @app.route("/")
@@ -115,13 +117,6 @@ def build_multi_results(pids, queries, env):
                 pid_results.append(wrapper)
         results[pid] = pid_results
     return results
-
-
-from flask import Flask
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app)  # This will allow all origins by default
 
 
 @app.route("/multi", methods=["POST"])
