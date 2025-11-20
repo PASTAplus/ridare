@@ -59,6 +59,7 @@ def first(el: lxml.etree.Element, xpath: str) -> str:
 def get_cache_path(pid: str, cache: str) -> str:
     """Return the cache file path for a given pid and cache directory."""
     from webapp.markdown_cache import safe_filename
+
     return str(pathlib.Path(cache, f"{safe_filename(pid)}.eml.xml"))
 
 
@@ -66,6 +67,7 @@ def download_eml_to_cache(pid: str, pasta_url: str, cache: str) -> str:
     """Download the raw EML XML for the given pid from pasta_url and write to cache_dir.
     Returns the path to the cached EML XML file as a string."""
     from webapp.markdown_cache import safe_filename
+
     eml_url = f"{pasta_url}/metadata/eml/{'/'.join(pid.strip().split('.'))}"
     eml_bytes = requests_wrapper(eml_url)
     eml_path = get_cache_path(pid, cache)
@@ -95,7 +97,8 @@ def get_eml(pid: str, env: str) -> bytes:
         raise webapp.exceptions.PastaEnvironmentError(msg)
 
     from webapp.markdown_cache import safe_filename
-    eml_path = pathlib.Path(cache, f'{safe_filename(pid)}.eml.xml')
+
+    eml_path = pathlib.Path(cache, f"{safe_filename(pid)}.eml.xml")
     if eml_path.is_file():
         return eml_path.read_bytes()
     # If not cached, fetch and cache

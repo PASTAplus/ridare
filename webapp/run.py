@@ -2,6 +2,7 @@
 
 import logging
 import os
+import re
 
 import daiquiri
 import flask
@@ -12,6 +13,7 @@ from lxml import etree
 import webapp.markdown_cache
 import webapp.config
 import webapp.utils
+from webapp.utils import get_eml
 import webapp.exceptions
 from flask_cors import CORS
 
@@ -21,7 +23,7 @@ daiquiri.setup(level=logging.INFO, outputs=(daiquiri.output.File(logfile), "stde
 logger = daiquiri.getLogger("run.py: " + __name__)
 
 app = flask.Flask(__name__)
-CORS(app)  # This will allow all origins by default
+CORS(app)
 app.config.from_object(webapp.config.Config)
 
 @app.route("/")
@@ -73,11 +75,12 @@ def markdown(pid_xpath):
 
 def build_multi_results(pids, queries, env):
     """Run XPath queries on multiple EML documents and return results as a dict."""
-    from webapp.utils import get_eml
-    import re
+
     def is_valid_xml_tag(tag):
-        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens, underscores, or periods
-        return re.match(r'^[A-Za-z_][\w\-\.]*$', tag) is not None
+        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,
+        # underscores, or periods
+        return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
+
     results = {}
     for pid in pids:
         try:
@@ -126,12 +129,23 @@ def multi():
     try:
         data = request.get_json(force=True)
     except Exception:
-        return jsonify({"error": "Invalid request format: POST body must be valid JSON."}), 400
+        return (
+            jsonify({"error": "Invalid request format: POST body must be valid JSON."}),
+            400,
+        )
     try:
         pids = data.get("pid")
         queries = data.get("query")
         if not isinstance(pids, list) or not isinstance(queries, list):
-            return jsonify({"error": "Invalid request format: 'query' must be a list of XPath strings or key-value pairs."}), 400
+            return (
+                jsonify(
+                    {
+                        "error": "Invalid request format: 'query' must be a list of XPath "
+                        "strings or key-value pairs."
+                    }
+                ),
+                400,
+            )
         results = build_multi_results(pids, queries, env)
         resultset_el = etree.Element("resultset")
         for pid, pid_results in results.items():
@@ -145,7 +159,9 @@ def multi():
                     else:
                         value_el = etree.SubElement(document_el, "value")
                         value_el.text = str(v)
-        xml_str = etree.tostring(resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True)
+        xml_str = etree.tostring(
+            resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True
+        )
         response = flask.make_response(xml_str)
         response.headers["Content-Type"] = "application/xml; charset=utf-8"
         return response
@@ -153,6 +169,7 @@ def multi():
         # Log the error and return a 400 response with details
         logger.exception(f"Exception in /multi endpoint: {str(e)}")
         return jsonify({"error": f"Failed to process query: {str(e)}"}), 400
+
 
 
 if __name__ == "__main__":
