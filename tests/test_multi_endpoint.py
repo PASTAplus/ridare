@@ -89,14 +89,15 @@ def test_multi_multiple_pids_valid(client):
         assert_document_structure(document, pid=pid)
 
 
-def test_multi_some_missing_or_invalid_pids(client):
-    """Test /multi endpoint with some missing or invalid PIDs."""
-    response = post_multi(client, payload=PAYLOAD_MISSING_OR_INVALID_PIDS)
-    root = parse_xml_response(response)
-    documents = root.findall("document")
-    assert len(documents) == 1
-    document = documents[0]
-    assert_document_structure(document, pid="edi.521.1")
+def test_multi_some_missing_or_invalid_pids(client, caplog):
+        """Test /multi endpoint with some missing or invalid PIDs."""
+        caplog.set_level("CRITICAL")
+        response = post_multi(client, payload=PAYLOAD_MISSING_OR_INVALID_PIDS)
+        root = parse_xml_response(response)
+        documents = root.findall("document")
+        assert len(documents) == 1
+        document = documents[0]
+        assert_document_structure(document, pid="edi.521.1")
 
 
 def test_multi_multiple_queries_varied_results(client):
@@ -147,8 +148,9 @@ def test_multi_empty_post_body(client):
     assert_invalid_request(response)
 
 
-def test_multi_non_json_post_body(client):
+def test_multi_non_json_post_body(client, caplog):
     """Test /multi endpoint with non-JSON POST body."""
+    caplog.set_level("CRITICAL")
     response = post_multi(client, data="not a json", content_type="text/plain")
     assert_invalid_request(response)
 

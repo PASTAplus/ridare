@@ -9,13 +9,13 @@ import daiquiri
 import flask
 import lxml.etree
 from flask import request, jsonify
+from flask_cors import CORS
 
 import webapp.markdown_cache
 import webapp.config
 import webapp.utils
 from webapp.utils import get_eml
 import webapp.exceptions
-from flask_cors import CORS
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 logfile = cwd + "/run.log"
@@ -74,6 +74,8 @@ def markdown(pid_xpath):
         flask.abort(400, description=e)
 
 # pylint: disable=too-many-locals
+# pylint: disable=c-extension-no-member
+# pylint: disable=protected-access
 def build_multi_results(pids, queries, env):
     """Run XPath queries on multiple EML documents and return results as a dict."""
 
@@ -85,7 +87,7 @@ def build_multi_results(pids, queries, env):
     for pid in pids:
         try:
             eml_bytes = get_eml(pid, env)
-            root = lxml.etree.fromstring(eml_bytes) # pylint: disable=c-extension-no-member
+            root = lxml.etree.fromstring(eml_bytes)
         except Exception as e:
             logger.exception(f"Failed to retrieve or parse EML for PID {pid}: {str(e)}")
             continue
@@ -96,7 +98,8 @@ def build_multi_results(pids, queries, env):
                 try:
                     values = root.xpath(item)
                     pid_results.extend(values)
-                except Exception:
+                except Exception as e:
+                    logger.exception(f"Failed to retrieve or parse XPath for PID {pid}: {str(e)}")
                     continue
             elif isinstance(item, dict) and len(item) == 1:
                 key, xpath = next(iter(item.items()))
@@ -109,13 +112,13 @@ def build_multi_results(pids, queries, env):
                     continue
                 if not values:
                     continue  # Skip if no nodes found
-                wrapper = lxml.etree.Element(key)  # pylint: disable=c-extension-no-member
+                wrapper = lxml.etree.Element(key)
                 for v in values:
                     # If v is an Element, append directly; if not, create a text node
-                    if isinstance(v, lxml.etree._Element):  # pylint: disable=c-extension-no-member
+                    if isinstance(v, lxml.etree._Element):
                         wrapper.append(v)
                     else:
-                        value_el = lxml.etree.Element("value")  # pylint: disable=c-extension-no-member
+                        value_el = lxml.etree.Element("value")
                         value_el.text = str(v)
                         wrapper.append(value_el)
                 pid_results.append(wrapper)
@@ -129,7 +132,8 @@ def multi():
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
     try:
         data = request.get_json(force=True)
-    except Exception:
+    except Exception as e:
+        logger.exception(f"Failed to parse JSON request: {str(e)}")
         return (
             jsonify({"error": "Invalid request format: POST body must be valid JSON."}),
             400,
@@ -167,7 +171,6 @@ def multi():
         response.headers["Content-Type"] = "application/xml; charset=utf-8"
         return response
     except Exception as e:
-        # Log the error and return a 400 response with details
         logger.exception(f"Exception in /multi endpoint: {str(e)}")
         return jsonify({"error": f"Failed to process query: {str(e)}"}), 400
 
