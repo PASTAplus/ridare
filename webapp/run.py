@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Ridare webapp Flask application: routes, multi-endpoint, and EML query logic."""
 
 import logging
 import os
@@ -8,7 +9,6 @@ import daiquiri
 import flask
 import lxml.etree
 from flask import request, jsonify
-from lxml import etree
 
 import webapp.markdown_cache
 import webapp.config
@@ -80,7 +80,6 @@ def build_multi_results(pids, queries, env):
         # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,
         # underscores, or periods
         return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
-
     results = {}
     for pid in pids:
         try:
@@ -147,19 +146,19 @@ def multi():
                 400,
             )
         results = build_multi_results(pids, queries, env)
-        resultset_el = etree.Element("resultset")
+        resultset_el = lxml.etree.Element("resultset")
         for pid, pid_results in results.items():
-            document_el = etree.SubElement(resultset_el, "document")
-            packageid_el = etree.SubElement(document_el, "packageid")
+            document_el = lxml.etree.SubElement(resultset_el, "document")
+            packageid_el = lxml.etree.SubElement(document_el, "packageid")
             packageid_el.text = pid
             if isinstance(pid_results, list):
                 for v in pid_results:
                     if isinstance(v, lxml.etree._Element):
                         document_el.append(v)
                     else:
-                        value_el = etree.SubElement(document_el, "value")
+                        value_el = lxml.etree.SubElement(document_el, "value")
                         value_el.text = str(v)
-        xml_str = etree.tostring(
+        xml_str = lxml.etree.tostring(
             resultset_el, pretty_print=True, encoding="utf-8", xml_declaration=True
         )
         response = flask.make_response(xml_str)
