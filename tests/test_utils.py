@@ -1,9 +1,9 @@
 """Unit tests for the `webapp.utils` module."""
 
-import pytest
 import tempfile
 import pathlib
 from unittest.mock import patch
+import pytest
 from webapp.utils import download_eml_to_cache, get_eml
 from webapp.markdown_cache import safe_filename
 
@@ -45,8 +45,8 @@ class DummyResponse:
             yield self.content[i : i + chunk_size]
 
 
-@pytest.fixture
-def temp_cache_dir():
+@pytest.fixture(name="temp_cache_dir")
+def test_temp_cache_dir():
     """Create a temporary directory and yield its path for use as a cache.
 
     Tests that need a filesystem cache directory can use this fixture; it
@@ -77,6 +77,7 @@ def test_download_eml_to_cache_success(mock_get, temp_cache_dir):
 
 @patch("webapp.utils.requests.get")
 def test_download_eml_to_cache_http_error(mock_get, temp_cache_dir):
+    """Test that an HTTP error during EML download raises an exception."""
     pid = "edi.521.1"
     pasta_url = "https://fake-pasta-url.org"
     cache = temp_cache_dir
@@ -88,6 +89,7 @@ def test_download_eml_to_cache_http_error(mock_get, temp_cache_dir):
 @patch("webapp.config.Config.PASTA_D", "https://fake-pasta-url.org")
 @patch("webapp.config.Config.CACHE_D", None)
 def test_get_eml_cache_hit(temp_cache_dir):
+    """Test that get_eml returns cached EML content when available."""
     pid = "edi.521.1"
     env = "dev"
     cache_dir = temp_cache_dir
@@ -103,6 +105,7 @@ def test_get_eml_cache_hit(temp_cache_dir):
 @patch("webapp.config.Config.CACHE_D", None)
 @patch("webapp.utils.download_eml_to_cache")
 def test_get_eml_cache_miss(mock_download, temp_cache_dir):
+    """Test that get_eml downloads EML when not cached and returns its content."""
     pid = "edi.521.1"
     env = "dev"
     cache_dir = temp_cache_dir
@@ -114,7 +117,7 @@ def test_get_eml_cache_miss(mock_download, temp_cache_dir):
 
 
 def test_eml_url_construction(monkeypatch):
-    from webapp.utils import download_eml_to_cache
+    """Test that download_eml_to_cache constructs the correct EML URLs for various PIDs."""
 
     constructed_urls = []
 
