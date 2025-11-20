@@ -73,6 +73,7 @@ def markdown(pid_xpath):
         )
         flask.abort(400, description=e)
 
+# pylint: disable=too-many-locals
 def build_multi_results(pids, queries, env):
     """Run XPath queries on multiple EML documents and return results as a dict."""
 
@@ -84,9 +85,9 @@ def build_multi_results(pids, queries, env):
     for pid in pids:
         try:
             eml_bytes = get_eml(pid, env)
-            root = lxml.etree.fromstring(eml_bytes)
-            # tree = lxml.etree.ElementTree(root)  # Not needed for XPath
-        except Exception:
+            root = lxml.etree.fromstring(eml_bytes) # pylint: disable=c-extension-no-member
+        except Exception as e:
+            logger.exception(f"Failed to retrieve or parse EML for PID {pid}: {str(e)}")
             continue
         pid_results = []
         for item in queries:
@@ -103,17 +104,18 @@ def build_multi_results(pids, queries, env):
                     continue  # Skip invalid tag names
                 try:
                     values = root.xpath(xpath)
-                except Exception:
+                except Exception as e:
+                    logger.exception(f"Failed to retrieve or parse XPath for PID {pid}: {str(e)}")
                     continue
                 if not values:
                     continue  # Skip if no nodes found
-                wrapper = lxml.etree.Element(key)
+                wrapper = lxml.etree.Element(key)  # pylint: disable=c-extension-no-member
                 for v in values:
                     # If v is an Element, append directly; if not, create a text node
-                    if isinstance(v, lxml.etree._Element):
+                    if isinstance(v, lxml.etree._Element):  # pylint: disable=c-extension-no-member
                         wrapper.append(v)
                     else:
-                        value_el = lxml.etree.Element("value")
+                        value_el = lxml.etree.Element("value")  # pylint: disable=c-extension-no-member
                         value_el.text = str(v)
                         wrapper.append(value_el)
                 pid_results.append(wrapper)
