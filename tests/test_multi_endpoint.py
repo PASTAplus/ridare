@@ -42,7 +42,7 @@ def parse_xml_response(response):
     """Parse the XML response from the /multi endpoint and return the root element."""
     assert response.status_code == 200
     assert response.headers["Content-Type"].startswith("application/xml")
-    root = lxml.etree.fromstring(response.data)
+    root = lxml.etree.fromstring(response.data)  # pylint: disable=c-extension-no-member
     assert root.tag == "resultset"
     return root
 
