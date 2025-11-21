@@ -77,11 +77,11 @@ def markdown(pid_xpath):
 # pylint: disable=too-many-locals
 # pylint: disable=c-extension-no-member
 # pylint: disable=protected-access
-def build_multi_results(pids, queries, env):
+def build_multi_results(pids: list[str], queries: list, env: str) -> dict[str, list]:
     """Run XPath queries on multiple EML documents and return results as a dict."""
 
-    def is_valid_xml_tag(tag):
-        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,
+    def is_valid_xml_tag(tag: str) -> bool:
+        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,
         # underscores, or periods
         return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
 
