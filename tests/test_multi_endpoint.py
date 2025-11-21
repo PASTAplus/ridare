@@ -180,3 +180,21 @@ def test_multi_mixed_query_semantics(client):
     # Should NOT contain invalid or empty tags
     for tag in ["123badtag", "emptyResult"]:
         assert_element_absent(document, tag)
+
+
+def test_multi_empty_pid_list(client, caplog):
+    """Test /multi endpoint with empty PID list, expecting DataPackageError response."""
+    caplog.set_level("CRITICAL")
+    payload = {"pid": [], "query": ["dataset/title"]}
+    response = post_multi(client, payload=payload)
+    assert response.status_code == 400
+    assert b"Data package error" in response.data
+
+
+def test_multi_pid_with_empty_string(client, caplog):
+    """Test /multi endpoint with PID list containing empty string, expecting DataPackageError response."""
+    caplog.set_level("CRITICAL")
+    payload = {"pid": [""], "query": ["dataset/title"]}
+    response = post_multi(client, payload=payload)
+    assert response.status_code == 400
+    assert b"Data package error" in response.data

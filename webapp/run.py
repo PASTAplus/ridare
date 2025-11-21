@@ -16,6 +16,7 @@ import webapp.config
 import webapp.utils
 from webapp.utils import get_eml
 import webapp.exceptions
+from webapp.exceptions import DataPackageError
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 logfile = cwd + "/run.log"
@@ -151,6 +152,9 @@ def multi():
                 ),
                 400,
             )
+        # Check for missing or invalid data packages and raise DataPackageError
+        if not pids or any(not pid for pid in pids):
+            raise DataPackageError("One or more data package IDs are missing or invalid.")
         results = build_multi_results(pids, queries, env)
         resultset_el = lxml.etree.Element("resultset")
         for pid, pid_results in results.items():
@@ -170,6 +174,9 @@ def multi():
         response = flask.make_response(xml_str)
         response.headers["Content-Type"] = "application/xml; charset=utf-8"
         return response
+    except DataPackageError as e:
+        logger.exception(f"DataPackageError in /multi endpoint: {str(e)}")
+        return jsonify({"error": f"Data package error: {str(e)}"}), 400
     except Exception as e:
         logger.exception(f"Exception in /multi endpoint: {str(e)}")
         return jsonify({"error": f"Failed to process query: {str(e)}"}), 400
