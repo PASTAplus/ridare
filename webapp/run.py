@@ -84,6 +84,7 @@ def build_multi_results(pids, queries, env):
         # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,
         # underscores, or periods
         return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
+
     results = {}
     for pid in pids:
         try:
@@ -103,6 +104,7 @@ def build_multi_results(pids, queries, env):
                     logger.exception(f"Failed to retrieve or parse XPath for PID {pid}: {str(e)}")
                     continue
             elif isinstance(item, dict) and len(item) == 1:
+                # Key-value pair: {tag_name: xpath}
                 key, xpath = next(iter(item.items()))
                 if not is_valid_xml_tag(key):
                     continue  # Skip invalid tag names
@@ -132,7 +134,6 @@ def multi():
     """Process multiple EML documents and run user-specified XPath queries."""
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
     try:
-        # Validate environment
         valid_envs = {webapp.config.Config.ENV_P, webapp.config.Config.ENV_S, webapp.config.Config.ENV_D}
         if env not in valid_envs:
             raise PastaEnvironmentError(f"Requested PASTA environment '{env}' does not exist.")
@@ -161,7 +162,6 @@ def multi():
                 ),
                 400,
             )
-        # Check for missing or invalid data packages and raise DataPackageError
         if not pids or any(not pid for pid in pids):
             raise DataPackageError("One or more data package IDs are missing or invalid.")
         results = build_multi_results(pids, queries, env)
