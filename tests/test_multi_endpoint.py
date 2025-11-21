@@ -114,36 +114,41 @@ def test_multi_multiple_queries_varied_results(client):
         assert document.find("language") is None
 
 
-def test_multi_missing_pid_field(client):
+def test_multi_missing_pid_field(client, caplog):
     """Test /multi endpoint with missing 'pid' field in payload."""
+    caplog.set_level("CRITICAL")
     payload = {"query": ["dataset/title"]}
     response = post_multi(client, payload=payload)
     assert_invalid_request(response)
 
 
-def test_multi_missing_query_field(client):
+def test_multi_missing_query_field(client, caplog):
     """Test /multi endpoint with missing 'query' field in payload."""
+    caplog.set_level("CRITICAL")
     payload = {"pid": ["edi.521.1"]}
     response = post_multi(client, payload=payload)
     assert_invalid_request(response)
 
 
-def test_multi_pid_not_list(client):
+def test_multi_pid_not_list(client, caplog):
     """Test /multi endpoint with 'pid' field not as a list."""
+    caplog.set_level("CRITICAL")
     payload = {"pid": "edi.521.1", "query": ["dataset/title"]}
     response = post_multi(client, payload=payload)
     assert_invalid_request(response)
 
 
-def test_multi_query_not_list(client):
+def test_multi_query_not_list(client, caplog):
     """Test /multi endpoint with 'query' field not as a list."""
+    caplog.set_level("CRITICAL")
     payload = {"pid": ["edi.521.1"], "query": "dataset/title"}
     response = post_multi(client, payload=payload)
     assert_invalid_request(response)
 
 
-def test_multi_empty_post_body(client):
+def test_multi_empty_post_body(client, caplog):
     """Test /multi endpoint with empty POST body."""
+    caplog.set_level("CRITICAL")
     response = post_multi(client)
     assert_invalid_request(response)
 

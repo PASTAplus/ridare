@@ -142,41 +142,63 @@ def build_multi_results(
     return results
 
 
-@app.route("/multi", methods=["POST"])
-def multi():
-    """Process multiple EML documents and run user-specified XPath queries."""
-    env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
-    try:
-        valid_envs = {webapp.config.Config.ENV_P, webapp.config.Config.ENV_S, webapp.config.Config.ENV_D}
-        if env not in valid_envs:
-            raise PastaEnvironmentError(f"Requested PASTA environment '{env}' does not exist.")
-    except PastaEnvironmentError as e:
-        logger.exception(f"PastaEnvironmentError in /multi endpoint: {str(e)}")
-        return jsonify({"error": f"PASTA environment error: {str(e)}"}), 400
+def validate_env(env: str) -> None:
+    """Raise PastaEnvironmentError if env is not valid."""
+    valid_envs = {webapp.config.Config.ENV_P, webapp.config.Config.ENV_S, webapp.config.Config.ENV_D}
+    if env not in valid_envs:
+        raise PastaEnvironmentError(f"Requested PASTA environment '{env}' does not exist.")
 
+
+def parse_json_request() -> dict:
+    """Parse and validate the incoming JSON request body."""
     try:
         data = request.get_json(force=True)
     except Exception as e:
         logger.exception(f"Failed to parse JSON request: {str(e)}")
-        return (
-            jsonify({"error": "Invalid request format: POST body must be valid JSON."}),
-            400,
+        raise ValueError("Invalid request format: POST body must be valid JSON.")
+    return data
+
+
+def validate_payload(data: dict) -> tuple[list[str], list[str | dict[str, str]]]:
+    """Validate and extract pids and queries from the request payload."""
+    pids = data.get("pid")
+    queries = data.get("query")
+    if not isinstance(pids, list) or not isinstance(queries, list):
+        raise ValueError(
+            "Invalid request format: 'query' must be a list of XPath strings or key-value pairs."
         )
+    if not pids or any(not pid for pid in pids):
+        raise DataPackageError("One or more data package IDs are missing or invalid.")
+    return pids, queries
+
+
+def error_response(message: str, code: int = 400) -> flask.Response:
+    """Return a JSON error response with the given message and status code."""
+    return jsonify({"error": message}), code
+
+
+@app.route("/multi", methods=["POST"])
+def multi() -> flask.Response:
+    """Process multiple EML documents and run user-specified XPath queries."""
+    env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
     try:
-        pids = data.get("pid")
-        queries = data.get("query")
-        if not isinstance(pids, list) or not isinstance(queries, list):
-            return (
-                jsonify(
-                    {
-                        "error": "Invalid request format: 'query' must be a list of XPath "
-                        "strings or key-value pairs."
-                    }
-                ),
-                400,
-            )
-        if not pids or any(not pid for pid in pids):
-            raise DataPackageError("One or more data package IDs are missing or invalid.")
+        # Step 1: Validate environment
+        validate_env(env)
+    except PastaEnvironmentError as e:
+        logger.exception(f"PastaEnvironmentError in /multi endpoint: {str(e)}")
+        return error_response(f"PASTA environment error: {str(e)}")
+    try:
+        # Step 2: Parse and validate request body
+        data = parse_json_request()
+        pids, queries = validate_payload(data)
+    except DataPackageError as e:
+        logger.exception(f"DataPackageError in /multi endpoint: {str(e)}")
+        return error_response(f"Data package error: {str(e)}")
+    except ValueError as e:
+        logger.exception(f"Invalid request in /multi endpoint: {str(e)}")
+        return error_response(str(e))
+    try:
+        # Step 3: Build results and construct XML response
         results = build_multi_results(pids, queries, env)
         resultset_el = lxml.etree.Element("resultset")
         for pid, pid_results in results.items():
@@ -196,13 +218,9 @@ def multi():
         response = flask.make_response(xml_str)
         response.headers["Content-Type"] = "application/xml; charset=utf-8"
         return response
-    except DataPackageError as e:
-        logger.exception(f"DataPackageError in /multi endpoint: {str(e)}")
-        return jsonify({"error": f"Data package error: {str(e)}"}), 400
     except Exception as e:
         logger.exception(f"Exception in /multi endpoint: {str(e)}")
-        return jsonify({"error": f"Failed to process query: {str(e)}"}), 400
-
+        return error_response(f"Failed to process query: {str(e)}")
 
 
 if __name__ == "__main__":
