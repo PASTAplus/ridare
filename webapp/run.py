@@ -16,7 +16,7 @@ import webapp.config
 import webapp.utils
 from webapp.utils import get_eml
 import webapp.exceptions
-from webapp.exceptions import DataPackageError
+from webapp.exceptions import DataPackageError, PastaEnvironmentError
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 logfile = cwd + "/run.log"
@@ -131,6 +131,15 @@ def build_multi_results(pids, queries, env):
 def multi():
     """Process multiple EML documents and run user-specified XPath queries."""
     env = flask.request.args.get("env") or webapp.config.Config.DEFAULT_ENV
+    try:
+        # Validate environment
+        valid_envs = {webapp.config.Config.ENV_P, webapp.config.Config.ENV_S, webapp.config.Config.ENV_D}
+        if env not in valid_envs:
+            raise PastaEnvironmentError(f"Requested PASTA environment '{env}' does not exist.")
+    except PastaEnvironmentError as e:
+        logger.exception(f"PastaEnvironmentError in /multi endpoint: {str(e)}")
+        return jsonify({"error": f"PASTA environment error: {str(e)}"}), 400
+
     try:
         data = request.get_json(force=True)
     except Exception as e:

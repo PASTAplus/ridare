@@ -198,3 +198,11 @@ def test_multi_pid_with_empty_string(client, caplog):
     response = post_multi(client, payload=payload)
     assert response.status_code == 400
     assert b"Data package error" in response.data
+
+
+def test_multi_invalid_env_argument(client, caplog):
+    """Test /multi endpoint with an invalid environment argument, expecting PastaEnvironmentError response."""
+    caplog.set_level("CRITICAL")
+    response = client.post("/multi?env=invalidenv", json={"pid": ["edi.521.1"], "query": ["dataset/title"]})
+    assert response.status_code == 400
+    assert b"PASTA environment error" in response.data
