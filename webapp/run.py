@@ -74,56 +74,69 @@ def markdown(pid_xpath):
         )
         flask.abort(400, description=e)
 
-# pylint: disable=too-many-locals
-# pylint: disable=c-extension-no-member
-# pylint: disable=protected-access
-def build_multi_results(pids: list[str], queries: list, env: str) -> dict[str, list]:
-    """Run XPath queries on multiple EML documents and return results as a dict."""
+def is_valid_xml_tag(tag: str) -> bool:
+    """Check if a string is a valid XML tag name."""
+    return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
 
-    def is_valid_xml_tag(tag: str) -> bool:
-        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,        # XML tag name must start with a letter or underscore, followed by letters, digits, hyphens,
-        # underscores, or periods
-        return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
 
-    results = {}
+def run_xpath_query(root: lxml.etree._Element, xpath: str) -> list:
+    """Run an XPath query on the XML root, logging and returning an empty list on error."""
+    try:
+        return root.xpath(xpath)
+    except Exception as e:
+        logger.exception(f"Failed to retrieve or parse XPath '{xpath}': {str(e)}")
+        return []
+
+
+def wrap_query_result(key: str, values: list) -> lxml.etree._Element:
+    """Wrap XPath results in an XML element with the given key as tag name."""
+    wrapper = lxml.etree.Element(key)
+    for v in values:
+        if isinstance(v, lxml.etree._Element):
+            wrapper.append(v)
+        else:
+            value_el = lxml.etree.Element("value")
+            value_el.text = str(v)
+            wrapper.append(value_el)
+    return wrapper
+
+
+def build_multi_results(
+    pids: list[str],
+    queries: list[str | dict[str, str]],
+    env: str,
+) -> dict[str, list[lxml.etree._Element | str]]:
+    """
+    Run XPath queries on multiple EML documents and return results as a dict.
+    Each PID is processed independently. For each query:
+      - If a string, run as a simple XPath.
+      - If a dict, use key as wrapper tag and value as XPath.
+    Results are collected per PID.
+    """
+    results: dict[str, list[lxml.etree._Element | str]] = {}
     for pid in pids:
         try:
-            eml_bytes = get_eml(pid, env)
-            root = lxml.etree.fromstring(eml_bytes)
+            eml_bytes: bytes = get_eml(pid, env)
+            root: lxml.etree._Element = lxml.etree.fromstring(eml_bytes)
         except Exception as e:
             logger.exception(f"Failed to retrieve or parse EML for PID {pid}: {str(e)}")
             continue
-        pid_results = []
+        pid_results: list[lxml.etree._Element | str] = []
         for item in queries:
             if isinstance(item, str):
                 # Simple XPath string
-                try:
-                    values = root.xpath(item)
-                    pid_results.extend(values)
-                except Exception as e:
-                    logger.exception(f"Failed to retrieve or parse XPath for PID {pid}: {str(e)}")
-                    continue
+                values = run_xpath_query(root, item)
+                pid_results.extend(values)
             elif isinstance(item, dict) and len(item) == 1:
-                # Key-value pair: {tag_name: xpath}
                 key, xpath = next(iter(item.items()))
                 if not is_valid_xml_tag(key):
-                    continue  # Skip invalid tag names
-                try:
-                    values = root.xpath(xpath)
-                except Exception as e:
-                    logger.exception(f"Failed to retrieve or parse XPath for PID {pid}: {str(e)}")
+                    # Skip invalid tag names
                     continue
+                values = run_xpath_query(root, xpath)
                 if not values:
-                    continue  # Skip if no nodes found
-                wrapper = lxml.etree.Element(key)
-                for v in values:
-                    # If v is an Element, append directly; if not, create a text node
-                    if isinstance(v, lxml.etree._Element):
-                        wrapper.append(v)
-                    else:
-                        value_el = lxml.etree.Element("value")
-                        value_el.text = str(v)
-                        wrapper.append(value_el)
+                    # Skip if no nodes found
+                    continue
+                wrapper = wrap_query_result(key, values)
                 pid_results.append(wrapper)
         results[pid] = pid_results
     return results
