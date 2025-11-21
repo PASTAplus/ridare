@@ -90,14 +90,14 @@ def test_multi_multiple_pids_valid(client):
 
 
 def test_multi_some_missing_or_invalid_pids(client, caplog):
-        """Test /multi endpoint with some missing or invalid PIDs."""
-        caplog.set_level("CRITICAL")
-        response = post_multi(client, payload=PAYLOAD_MISSING_OR_INVALID_PIDS)
-        root = parse_xml_response(response)
-        documents = root.findall("document")
-        assert len(documents) == 1
-        document = documents[0]
-        assert_document_structure(document, pid="edi.521.1")
+    """Test /multi endpoint with some missing or invalid PIDs."""
+    caplog.set_level("CRITICAL")
+    response = post_multi(client, payload=PAYLOAD_MISSING_OR_INVALID_PIDS)
+    root = parse_xml_response(response)
+    documents = root.findall("document")
+    assert len(documents) == 1
+    document = documents[0]
+    assert_document_structure(document, pid="edi.521.1")
 
 
 def test_multi_multiple_queries_varied_results(client):
@@ -197,7 +197,8 @@ def test_multi_empty_pid_list(client, caplog):
 
 
 def test_multi_pid_with_empty_string(client, caplog):
-    """Test /multi endpoint with PID list containing empty string, expecting DataPackageError response."""
+    """Test /multi endpoint with PID list containing empty string, expecting
+    DataPackageError response."""
     caplog.set_level("CRITICAL")
     payload = {"pid": [""], "query": ["dataset/title"]}
     response = post_multi(client, payload=payload)
@@ -206,8 +207,11 @@ def test_multi_pid_with_empty_string(client, caplog):
 
 
 def test_multi_invalid_env_argument(client, caplog):
-    """Test /multi endpoint with an invalid environment argument, expecting PastaEnvironmentError response."""
+    """Test /multi endpoint with an invalid environment argument, expecting
+    PastaEnvironmentError response."""
     caplog.set_level("CRITICAL")
-    response = client.post("/multi?env=invalidenv", json={"pid": ["edi.521.1"], "query": ["dataset/title"]})
+    response = client.post(
+        "/multi?env=invalidenv", json={"pid": ["edi.521.1"], "query": ["dataset/title"]}
+    )
     assert response.status_code == 400
     assert b"PASTA environment error" in response.data

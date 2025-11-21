@@ -6,14 +6,12 @@ import os
 
 import daiquiri
 import flask
-from flask import request, jsonify
 from flask_cors import CORS
 import lxml.etree
 
 import webapp.markdown_cache
 import webapp.config
 import webapp.utils
-from webapp.utils import get_eml
 import webapp.exceptions
 from webapp.exceptions import DataPackageError, PastaEnvironmentError
 from webapp.multi_helpers import (
@@ -77,6 +75,7 @@ def markdown(pid_xpath):
         )
         flask.abort(400, description=e)
 
+# pylint: disable=c-extension-no-member
 @app.route("/multi", methods=["POST"])
 def multi() -> flask.Response:
     """Process multiple EML documents and run user-specified XPath queries."""
@@ -107,7 +106,7 @@ def multi() -> flask.Response:
             packageid_el.text = pid
             if isinstance(pid_results, list):
                 for v in pid_results:
-                    if isinstance(v, lxml.etree._Element):
+                    if isinstance(v, lxml.etree._Element):  # pylint: disable=protected-access
                         document_el.append(v)
                     else:
                         value_el = lxml.etree.SubElement(document_el, "value")
@@ -118,7 +117,7 @@ def multi() -> flask.Response:
         response = flask.make_response(xml_str)
         response.headers["Content-Type"] = "application/xml; charset=utf-8"
         return response
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         logger.exception(f"Exception in /multi endpoint: {str(e)}")
         return error_response(f"Failed to process query: {str(e)}")
 
