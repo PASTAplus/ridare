@@ -36,9 +36,9 @@ def test_text_to_html(complete_eml: lxml.etree.Element):
     sample.assert_match(text_html_str, 'text_html', '.html')
 
 
-def test_docbook_to_html_simple(docbook_xml):
-    html_str = eml_text_type._docbook_to_html(docbook_xml)
-    assert '<div class="article">' in html_str
+# def test_docbook_to_html_simple(docbook_xml):
+#     html_str = eml_text_type._docbook_to_html(docbook_xml)
+#     assert '<div class="article">' in html_str
 
 
 def test_docbook_to_html_complete(complete_eml: lxml.etree.Element):

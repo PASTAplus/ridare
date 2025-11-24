@@ -109,6 +109,36 @@ The HTTP document body may contain more information about the nature of the fail
 - Download DocBook XSLs and uncompress into the root of the project
     - https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.zip
 
+
+## Conda Environment
+
+### Server: Procedure for updating the Conda environment and all dependencies
+
+```shell
+conda deactivate
+conda update -n base -c defaults conda # conda-forge
+conda env remove --name ridare
+conda update --name ridare --all
+conda activate ridare
+```
+
+### Dev: Procedure for updating the Conda environment and all dependencies
+
+Full "Server" procedure, plus update the `environment.yml` and `requirements.txt` files:
+
+```shell
+conda env export --no-builds > environment.yml
+pip list --format freeze > requirements.txt
+```
+
+### If Conda base won't update to latest version, try:
+
+```shell
+conda install conda==<version>
+``` 
+
+
+
 ## Troubleshooting
 
 If Ridare returns an unexpected result, the XML fragment that was extracted from the EML

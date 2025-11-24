@@ -15,5 +15,6 @@ dependencies:
   - lxml
   - filelock
   - pytest
+  - pytest-flask
   - daiquiri
 prefix: /home/servilla/anaconda3/envs/ridare
