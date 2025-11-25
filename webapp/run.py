@@ -15,8 +15,7 @@ import webapp.utils
 import webapp.exceptions
 from webapp.exceptions import DataPackageError, PastaEnvironmentError
 from webapp.multi_helpers import (
-    validate_env, parse_json_request, validate_payload, error_response,
-    build_multi_results
+    validate_env, parse_json_request, validate_payload, build_multi_results
 )
 
 cwd = os.path.dirname(os.path.realpath(__file__))
@@ -85,17 +84,17 @@ def multi() -> flask.Response:
         validate_env(env)
     except PastaEnvironmentError as e:
         logger.exception(f"PastaEnvironmentError in /multi endpoint: {str(e)}")
-        return error_response(f"PASTA environment error: {str(e)}")
+        flask.abort(400, description=f"PASTA environment error: {str(e)}")
     try:
         # Step 2: Parse and validate request body
         data = parse_json_request()
         pids, queries = validate_payload(data)
     except DataPackageError as e:
         logger.exception(f"DataPackageError in /multi endpoint: {str(e)}")
-        return error_response(f"Data package error: {str(e)}")
+        flask.abort(400, description=f"Data package error: {str(e)}")
     except ValueError as e:
         logger.exception(f"Invalid request in /multi endpoint: {str(e)}")
-        return error_response(str(e))
+        flask.abort(400, description=str(e))
     try:
         # Step 3: Build results and construct XML response
         results = build_multi_results(pids, queries, env)
@@ -119,7 +118,7 @@ def multi() -> flask.Response:
         return response
     except Exception as e:  # pylint: disable=broad-except
         logger.exception(f"Exception in /multi endpoint: {str(e)}")
-        return error_response(f"Failed to process query: {str(e)}")
+        flask.abort(400, description=f"Failed to process query: {str(e)}")
 
 
 if __name__ == "__main__":

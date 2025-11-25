@@ -52,11 +52,6 @@ def validate_payload(data: dict) -> tuple[list[str], list[str | dict[str, str]]]
     return pids, queries
 
 
-def error_response(message: str, code: int = 400) -> flask.Response:
-    """Return a JSON error response with the given message and status code."""
-    return jsonify({"error": message}), code
-
-
 def is_valid_xml_tag(tag: str) -> bool:
     """Check if a string is a valid XML tag name."""
     return re.match(r"^[A-Za-z_][\w\-\.]*$", tag) is not None
