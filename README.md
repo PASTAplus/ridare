@@ -103,6 +103,82 @@ On failure, a HTTP response with status of 4xx or 500x is returned as follows:
 
 The HTTP document body may contain more information about the nature of the failure.
 
+## Multi endpoint (/multi)
+
+The /multi endpoint runs one or more XPath queries against one or more EML documents (by PID) and returns an XML resultset containing one `<document>` element per PID.
+
+- Method: POST  
+- URL: /multi  
+- Content-Type: application/json  
+- Response Content-Type: application/xml
+
+Request parameters  
+- JSON body:  
+  - pid: list of data package IDs (PIDs) - required  
+  - query: list of XPath queries - required  
+    - Each item can be either:  
+      - a string: an XPath expression whose results are appended directly into the document, or  
+      - a single-key object: { "tagName": "xpath" } - results for the xpath are wrapped under `<tagName>...</tagName>` before being appended.  
+- Optional query string:  
+  - env: one of the configured PASTA environments (e.g. `development`, `staging`, `production`). Defaults to `production` environment.
+
+### Examples
+
+Simple single-PID, single-XPath: 
+```json
+{
+  "pid": ["edi.521.1"],  
+  "query": ["dataset/title"]  
+}
+```
+
+Multiple PIDs and a labeled query:  
+```json
+{
+  "pid": ["edi.521.1", "knb-lter-sbc.1001.7"],  
+  "query": [
+    "dataset/title",  
+    { "projectTitle": "dataset/project/title" }  
+  ]  
+}
+```
+
+Example curl:
+```bash
+curl -X POST "https://ridare.edirepository.org/multi" \
+  -H "Content-Type: application/json" \
+  -d '{"pid":["edi.521.1", "knb-lter-sbc.1001.7"],"query":["dataset/title", {"projectTitle":"dataset/project/title"}]}'
+```
+
+Example response (abridged):
+```xml
+<?xml version="1.0" encoding="utf-8"?>  
+<resultset>  
+  <document>  
+    <packageid>edi.521.1</packageid>  
+    <title>Example dataset title</title>  
+    <projectTitle>  
+      <title>Project title here</title>  
+    </projectTitle>  
+  </document>  
+  <document>  
+    <packageid>knb-lter-sbc.1001.7</packageid>  
+    ...  
+  </document>  
+</resultset>
+```
+
+### Errors
+
+Error cases and status codes:  
+- 200: OK - returned with `application/xml` and the XML resultset.  
+- 400: Bad request - returned for:  
+  - invalid JSON or non-JSON body ("Invalid request format"),  
+  - missing/invalid `pid` or `query` fields,  
+  - empty PID list or PID containing an empty string ("Data package error"),  
+  - invalid `env` parameter mapping to a PastaEnvironmentError ("PASTA environment error").
+
+
 ## Install
 
 - Clone from GitHub
