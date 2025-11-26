@@ -3,6 +3,7 @@
 import pytest
 import lxml.etree
 from webapp.run import app
+import tests.util.sample as sample
 
 
 @pytest.fixture(name="client")
@@ -47,18 +48,6 @@ def parse_xml_response(response):
     return root
 
 
-def assert_document_structure(document, pid=None, title_required=True):
-    """Assert the structure of a document element, optionally checking PID and title presence."""
-    packageid = document.find("packageid")
-    assert packageid is not None
-    if pid is not None:
-        assert packageid.text == pid
-    title = document.find("title")
-    if title_required:
-        assert title is not None
-        assert title.text is not None and len(title.text) > 0
-
-
 def assert_invalid_request(response):
     """Assert that the response is a 400 error with an invalid request format message."""
     assert response.status_code == 400
@@ -74,9 +63,9 @@ def test_multi_basic(client):
     """Test /multi endpoint with a single valid PID and query."""
     response = post_multi(client, payload=PAYLOAD_BASIC)
     root = parse_xml_response(response)
-    document = root.find("document")
+    document = lxml.etree.tostring(root.find("document"), encoding="unicode")
     assert document is not None
-    assert_document_structure(document)
+    sample.assert_match(document, "multi_basic", ".xml")
 
 
 def test_multi_multiple_pids_valid(client):
@@ -85,8 +74,9 @@ def test_multi_multiple_pids_valid(client):
     root = parse_xml_response(response)
     documents = root.findall("document")
     assert len(documents) == 2
-    for document, pid in zip(documents, PAYLOAD_MULTIPLE_PIDS["pid"]):
-        assert_document_structure(document, pid=pid)
+    for i, document in enumerate(documents):
+        document = lxml.etree.tostring(root.find("document"), encoding="unicode")
+        sample.assert_match(document, f"multi_multiple_pids_valid_{i}", ".xml")
 
 
 def test_multi_some_missing_or_invalid_pids(client, caplog):
@@ -97,7 +87,8 @@ def test_multi_some_missing_or_invalid_pids(client, caplog):
     documents = root.findall("document")
     assert len(documents) == 1
     document = documents[0]
-    assert_document_structure(document, pid="edi.521.1")
+    document = lxml.etree.tostring(document, encoding="unicode")
+    sample.assert_match(document, "multi_some_missing_or_invalid_pids", ".xml")
 
 
 def test_multi_multiple_queries_varied_results(client):
@@ -106,8 +97,9 @@ def test_multi_multiple_queries_varied_results(client):
     root = parse_xml_response(response)
     documents = root.findall("document")
     assert len(documents) == 1
-    for document, pid in zip(documents, PAYLOAD_MULTIPLE_QUERIES["pid"]):
-        assert_document_structure(document, pid=pid)
+    for i, document in enumerate(documents):
+        document_xml = lxml.etree.tostring(root.find("document"), encoding="unicode")
+        sample.assert_match(document_xml, f"multi_multiple_queries_varied_results_{i}", ".xml")
         # Check that invalid XPath does not add elements named 'not/a/real/xpath'
         assert document.find("not/a/real/xpath") is None
         # Check that empty-result XPath does not add elements named 'language'
@@ -175,7 +167,8 @@ def test_multi_mixed_query_semantics(client):
     root = parse_xml_response(response)
     document = root.find("document")
     assert document is not None
-    assert_document_structure(document)
+    document_xml = lxml.etree.tostring(document, encoding="unicode")
+    sample.assert_match(document_xml, "multi_mixed_query_semantics", ".xml")
     # Should contain dataset/title as direct child (simple XPath)
     assert any(t.text for t in document.findall("title"))
     # Should contain projectTitle wrapper with dataset/project/title inside
