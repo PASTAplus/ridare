@@ -16,5 +16,5 @@ dependencies:
   - requests
   - grip
   - libiconv
-  - flask_cors
+  - flask-cors
 prefix: /opt/miniconda3/envs/ridare
