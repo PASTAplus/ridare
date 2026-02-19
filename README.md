@@ -192,9 +192,10 @@ Error cases and status codes:
 
 ```shell
 conda deactivate
-conda update -n base -c defaults conda # conda-forge
-conda env remove --name ridare
-conda update --name ridare --all
+conda update -n base -c defaults conda
+conda update --all
+conda env remove --yes --name ridare
+conda env create --file environment-min.yml
 conda activate ridare
 ```
 
@@ -213,7 +214,23 @@ pip list --format freeze > requirements.txt
 conda install conda==<version>
 ``` 
 
+## Quick sanity check after updates
 
+Open a package which uses Markdown in the abstract, e.g. `knb-lter-cap.704.1` in the landing page on portal-d:
+
+https://portal-d.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=704
+
+Then remove the cached entry in Ridare production for that package:
+
+```shell
+rm /home/pasta/ridare/cache/dev/__dataset_abstract-knb_lter_cap_704_1.html
+```
+
+Then refresh the package in the landing page and verify that the abstract is rendered correctly, and that the cached entry is recreated in Ridare:
+
+```shell
+ll /home/pasta/ridare/cache/dev/__dataset_abstract-knb_lter_cap_704_1.html
+```
 
 ## Troubleshooting
 
