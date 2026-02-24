@@ -6,7 +6,6 @@ import os
 
 import daiquiri
 import flask
-from flask_cors import CORS
 import lxml.etree
 
 import webapp.markdown_cache
@@ -24,7 +23,6 @@ daiquiri.setup(level=logging.INFO, outputs=(daiquiri.output.File(logfile), "stde
 logger = daiquiri.getLogger("run.py: " + __name__)
 
 app = flask.Flask(__name__)
-CORS(app)
 app.config.from_object(webapp.config.Config)
 
 @app.route("/")
